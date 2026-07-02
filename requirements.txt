@@ -1,0 +1,19 @@
+# Core LangChain
+langchain>=0.3,<0.4
+langchain-core>=0.3,<0.4
+langchain-community>=0.3,<0.4
+langchain-ollama>=0.2,<0.3
+langchain-pinecone>=0.2,<0.3
+langchain-text-splitters>=0.3,<0.4
+
+# Vector store
+pinecone>=5,<6
+
+# LLM / embeddings server (local)
+ollama>=0.3,<0.4
+
+# UI
+streamlit>=1.35,<2
+
+# Utilities
+python-dotenv>=1.0,<2
