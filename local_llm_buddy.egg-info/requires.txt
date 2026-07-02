@@ -1,0 +1,14 @@
+langchain<0.4,>=0.3
+langchain-core<0.4,>=0.3
+langchain-community<0.4,>=0.3
+langchain-ollama<0.3,>=0.2
+langchain-pinecone<0.3,>=0.2
+langchain-text-splitters<0.4,>=0.3
+pinecone<6,>=5
+ollama<0.4,>=0.3
+streamlit<2,>=1.35
+python-dotenv<2,>=1.0
+
+[dev]
+pytest>=8
+pytest-cov
