@@ -1,0 +1,398 @@
+Arechtectual for team context tracker - 
+
+Vectors Summary of Conversations - Create a knowledge graph of things that might have been learned 
+
+Merge request associated with new facts - 
+
+	Interesting streams of data - code commits, meeting notes and project archives
+
+	Create 
+
+Interpreting images - create answers 
+
+Medical Contents - what was it doing really - what did you ask it - Palentear models 
+
+Give not a image - ran it trough OCR first - there process - not even using a LLM 
+
+Visual LLM for recognition 
+
+Medical language how go they are at keeping up with content. 
+	Trauma 
+	Drug Intervestion 
+	
+
+What research in software development - where are the efficiency gains and how is that translating to cost. 
+	Epoc or user story - 
+	
+
+Zero Day Form Extraction Meeting
+Transcript
+https://otter.ai/u/cUuQWR4H0FOTe9M3nja9MSPeXw8?view=summary
+Overview
+Meeting Title: Zero Day Form Extraction Meeting Attendees began by discussing logistics and confirming attendance, with some participants joining late. The main topic centered on approaches to extracting structured data from previously unseen ("zero day") forms, particularly in the medical domain. The team reviewed their current workflow, which involves using a Vision Language Model (VLM) and Amazon Textract to extract key-value pairs from forms, then mapping these to the OMOP (Observational Medical Outcomes Partnership) standard for medical data. They noted that this process works best when the form structure is known, but is less effective for truly novel or unstructured documents. A key insight from a recent conversation with a colleague (Dave) was shared: rather than focusing on extracting key-value pairs from unknown forms, it may be more effective to simply extract all text and use NLP to identify OMOP concepts (such as blood pressure, medications, injuries, demographics) directly from the text, regardless of its structure. This approach would reduce the risk of "hallucinating" data and focus on high-confidence extraction of known medical concepts, even from unstructured notes or handwritten documents. The group discussed the technical implications of this paradigm shift. They considered training a model specifically to recognize a defined set of OMOP concepts (about 300), which would make the extraction process more focused and testable. They also discussed the potential to use tools like AWS Comprehend Medical for concept extraction, but noted its limitations (e.g., sensitivity to typos, lack of tunability) compared to large language models (LLMs), which could be fine-tuned for this task and potentially run locally for cost efficiency. The conversation then shifted to the value of confidence scores in extraction, the possibility of combining positional/contextual information with NLP outputs, and the broader applicability of this approach to other domains (e.g., financial forms for DFAS). The team brainstormed about building a system that could leverage both model confidence and learned patterns from form layouts to improve extraction accuracy. In the latter part of the meeting, the discussion moved to knowledge management and long-term memory for project documentation. Participants shared experiences with tools like Otter for transcription, Claude and OpenAI's "Dreamer" for persistent project memory, and the challenges of storing, retrieving, and querying project knowledge. They debated the merits of different storage architectures (file trees with YAML/markdown, vector databases, triple stores) and the importance of making project knowledge accessible for both real-time and long-term use, including cross-project knowledge sharing and reporting. The meeting concluded with action items to formalize the new zero day extraction approach for client presentation, and a plan to reconvene the following week to review findings and further develop the proposed workflow. There was also interest in documenting a sample architecture for integrating AI-powered knowledge management into their project ecosystem, particularly leveraging Microsoft and OpenAI tools.
+Action Items
+[ ] Create a system architecture for what knowledge retention for Jonanthan and ATA might look like
+[ ] Pull information for Van on zero day document conversion might look like, research and documents that support his appoarch
+Outline
+Discussion on Zero Day Form Extraction
+Speaker 2 introduces the topic of zero day form extraction, explaining the current approach of looking for key value pairs and organizing them into a standardized medical structure using the Omop standard.
+Speaker 2 mentions a conversation with Dave about extracting text from non-standard forms and looking for medical concepts like blood pressure measurements and demographic information.
+Speaker 1 and Speaker 2 discuss the potential of using VLM or OCR to extract medical concepts from text, emphasizing the need for confidence levels in the extracted data.
+Speaker 3 suggests using Comprehend Medical for NLP to extract ontological meaning from text without field mapping, focusing on OMOP concepts rather than medical codes.
+OMOP Concepts and Medical Data Structure
+Speaker 2 explains the OMOP process as a medical data structure standard that includes medications, tests, procedures, conditions, and patient history.
+Speaker 1 and Speaker 3 discuss the flexibility of the OMOP standard and the potential for combining confidence scores from NLP with learned confidence based on form type.
+Speaker 1 suggests using a system that allows users to provide descriptions of forms to improve the confidence levels of extracted OMOP concepts.
+Speaker 3 mentions the need for filtering and structuring the extracted data to meet the requirements of the DOD's financial system.
+Comparing Comprehend Medical and Large Language Models
+Speaker 3 expresses interest in comparing the performance of Comprehend Medical and large language models in extracting medical concepts from text.
+Speaker 1 suggests using a tool to test the quality of responses from different large language models and comparing them to Comprehend Medical.
+Speaker 3 notes that Comprehend Medical falters on typos, especially in medication names, which large language models might handle better.
+Speaker 1 proposes using a local large language model like Llama 3 for hyper-tuning and fine-tuning specific use cases.
+Long-Form Knowledge Retention and Project Management
+Speaker 1 discusses the use of long-form knowledge retention tools like Dreamer and Claude for project management and knowledge aggregation.
+Speaker 1 explains the process of using Otter for transcription and integrating it with a project management tool to capture meeting notes and action items.
+Speaker 3 mentions the challenges of extracting and sharing information across an organization and the potential benefits of using long-form knowledge retention tools.
+Speaker 1 suggests creating a shared space for project documentation and using natural language queries to retrieve information from the project archive.
+Implementing Long-Form Knowledge Retention in Project Workflows
+Speaker 3 asks for a description of how long-form knowledge retention tools could be implemented in project workflows for a small team.
+Speaker 1 suggests using a simple file structure with YAML tags for project documentation and integrating it with a project management tool.
+Speaker 1 explains the benefits of using a vectorized database for querying project information and the potential for connecting it to other tools like Zapier.
+Speaker 3 emphasizes the importance of creating a shared space for project documentation and using natural language queries to retrieve information.
+Cross-Pollination and Information Sharing
+Speaker 1 discusses the potential for long-form knowledge retention tools to facilitate cross-pollination of information across different projects and teams.
+Speaker 3 mentions the challenges of sharing information across an organization and the potential benefits of using agents to perform tasks like opportunity identification and proposal generation.
+Speaker 1 suggests creating a default AI project space for every project and using agents to learn and manage project information.
+Speaker 3 highlights the importance of creating standard documents and using agents to filter opportunities and shape responses to RFIs.
+Vectorization vs. SQL Schema for Querying
+Speaker 1 explains the benefits of using a SQL schema for querying project information, allowing for more robust structuring and searching.
+Speaker 3 questions the future of vectorization and whether it will eventually be abandoned in favor of more traditional querying methods.
+Speaker 1 suggests that vectorization is useful for generating new information but may not be as effective for querying and retrieving existing documentation.
+Speaker 3 notes that large language models are not designed to be data stores and that querying them may become less effective over time.
+Final Thoughts and Next Steps
+Speaker 2 asks for a follow-up meeting to formalize the approach for presenting to the customer.
+Speaker 1 suggests scheduling a meeting for the following week to discuss the proposal and review the transcripts.
+Speaker 2 confirms the need to present a zero day approach for extracting information from unknown media, including forms and notes.
+Speaker 1 agrees to prepare for the next meeting and gather additional information to refine the proposal.
+
+5.15.26
+
+To dos: talk to the thing to make designs and choices for us - 
+
+	
+
+Focusing more on AI security 
+
+Chat GPT writing - talking asking specific section  - trying to introduce rigor. 
+
+Using LLMs for long form text - how to stabilize and ensure content is high quality across the paper. 
+
+Team dynamics - with AI agent - technical manager or feedback with a trained agent - but a representative that could speak to you about that project - transition to another - specific and specialist for that project. - not a perfect science
+
+Idea how do AI agents effect team dynamics - 
+
+Small ETL jobs - large enterprise system and ecosystem for maintaining knowledge over time.
+
+Add a AI tool to capture notes spin to a RAG database and then feed a chatbot - theory only can get once you’re at the inception of the systems. 
+
+LLM - for knowledge transfer - 
+
+Two Research Topics
+
+	LLMS/Agents for knowledge transfer
+https://www.digitalapplied.com/blog/chatgpt-memory-dreaming-v3-openai-2026-guide
+
+	Generating Long Form text
+
+
+3.27.26
+Quantum -  Not a thing
+Mine Detection - not gonna be a thing
+Haven’t made contact with Paul. 
+
+How models would perform on document extraction form extraction
+You only look once YoLo model - identifying sections of the document in form of scanning
+	Id being that it’s more accurate if we only train the model on sections of the document instead of the whole document. 
+Sections have a tendency to overlap so not working really well but the section model seems to be helping to discrete the bounding box problem
+
+What is the best way to do this work….to tied to the original logic. Let me take a look and see what I can find. Talking points of just feeding it 
+
+Highly dependant on having a lot of training data - new version doesn’t 
+Zero day forms - geometric math - doesn't really need to be learned 
+How can we use a pre-trained model to identify or learn these structures in a way that’s productive
+
+Texttrac - learns the schema on read, can upload a structure ahead of time. 
+Can’t provide a template to text stract which seems like a flaw - pulls out a key and value at the same time. 
+Better than LLMs and OCRs but they are catching up to performance of this system. 
+
+Send a white paper summary of what could also be done  
+Develop experimental plan on how you might approach 
+API - start document analysis inside textstrac - key/value pairs are returned. 
+
+Lamdas 
+
+
+
+Started by puting latest notes at the top after page 9
+
+5.23.25 - Notes - Object tracking - reaching out to facilitate a conversation
+
+Upskilling forums to do a explority. 
+
+6.6.25
+
+How an adversary might attack a client, look at information and decide how to attack.  	
+
+Try to hide things in smaller specialized models that can be attacked, what are their vulnerabilities for attack. 
+
+One bad piece of software == cyber security. 
+
+In this example the AI is being used to make decisions - go through a chat gpt model and it can do everything that I want it to do. 
+
+Fairly high risk to just use these models out of the box - creating is very expensive - techniques or methods that organizations can use it for - type of decision is used for might be fairly similar.  
+
+Leveraging AI at scale for organizations that have less resources and manpower requirements. 
+
+Craig can we leverage AI in government - more decision support and NLP - AI on the third party assessment not really AI. 
+
+Cyber security portion of the conversation where does that fit - 
+
+Kinda look at more resources on Cyber Security - as it relates to organizations that are using AI and what vulnerabilities are exposed as a result of the tools.  
+
+Sharpening thinking around the cyber security issues on the SWIFT response - these decisions are high security decisions can we raise usability and reliability of the tools. 
+
+Move as much as we can out of AI and focus AI on very specific tasks - look for anomalies and different these are the kinds of problems we would stick AI on. 
+
+Use it just for particular things and this is why - 
+
+Ability of AI to reflect on AI generate content versus it’s ability to - summarize original intent upfront then think about avenues that could be associated with differentiation. 
+
+Local offline models - add in some context around models that aren’t using internet pings. 
+
+New Topic—------------	
+	How is AI related to RPA layer - on top robotics process operation  - teach a robot - it use the clicks this what for this, click this wait - might need to react in a specific. 
+
+SOUP for the Airforce - coordinated operations in data environments - share data to create more accurate object tracks - could use the system to improve object detection - some optimization is necessary. 
+
+Write an algo to generate the rules associated with when data share should continue, but 
+
+Level 1 - click here wait two seconds, click here wait two seconds
+Level 2 - use history 
+Level 3 - launch AI on this problem, so it can optimize the pattern - low risk or simulation environment - can’t do it at scale.  
+
+
+SWFT Response Notes:
+
+Shift left approach could require software developers to more clearly articulate not only the advantages and enhancements of AI incorporation but also where in the development pipeline AI tools are being used, there are these three use cases:
+AI models being developed and used as a discrete component of the software
+AI models that are being leveraged to develop the software being proposed. 
+Or both
+None of these in isolation present a risk but without a clear articulation of when and how how the models are being utilized it seems there could be real downstream negative effects associated with deployment of the AI generated software or software that utilizes generative models in a way that creates vulnerabilities. A high level framework to assess potential risk might look like below:
+Leveraging API calls with limited finetuning or data augmentation - bad
+There’s some evidence to suggest that when new models get introduced the previous versions begin to degrade, so over reliance on say GPT 4o is problematic. 
+Zero shot being used for specific knowledge dependent task - bad
+Larger models fine tuned but being asked to solve multiple tasks across the development pipeline or solution - bad 
+Fine tuned large or medium size models for specific tasks - better
+No process for data augmentation (RAG) - probably not ideal
+Ideally highly tuned offline small or medium size models that use data augmentation methods - good
+Possible to propose “milestone zero” where the software developer must clearly articulate how generative AI methods are being used and evaluation measure that have been put in place to guard against risk exposure. Could use something similar to provide a risk score or pre-evaluation of the approach. 
+Could tailor response in Milestone 4 to align a bit more with this ideal to mitigate risk if you like the idea
+Question 2 - I would lean more into the xAI discussion. Explainable AI has real benefits in this environment and can outperform more “black box” based methods especially when the data landscape is well established. It can be a real competitive advantage especially in comparison to firms that are using generative AI approaches up and down the pipeline. I guess it’s just important to remind folks that “AI” isn’t just transformer based models, that the results from way more simpler approaches, that have less risk, cost less to maintain and are fully understood is real. 
+
+Question 3 - Using methods to track a model's stability over performance given exposure to larger datasets can be a tool to estimate the quality and quantity of data that will be needed for any given task. This feels like an experimental design approach to model complexity and cost estimation.  Similar to estimating the sample size for a needed power threshold in traditional statistical models. 
+
+
+
+7.3.25
+
+Mission Defense Agency - Might want to move a lot of their operations to the cloud, golden dome - systems of systems - integration problem not really new technology
+
+AWS - could help with this integration - 
+
+Accelerated RMF - security assessment stuff - bring AWS into the fold 
+
+ATA would build that automation - build automation - uses the config file - to build the software and scan software - purely - build package software called mix - not LLM - really strong in dependency management. Everytime you build its the same software build everytime. Open source library but used in the custom software.  
+
+Generate RMF - Risk assessment process - dependency graphs and build automations could be inputs into a model - translating stuff from one format to another 
+	Different RMF depending on the environment - security levels would make the a difference
+
+Create a POAM - list of things that need to be done to fix risks. 
+	(Plan of Action and Milestones) -
+Security Controls might be included in the above. 
+
+Government receives all the stuff in the final two milestones - validating the controls they say they are following - security expert does this now - a lot of times they do an interview 
+
+Bedrock - AWS thing - conglomerate of models and things – what can it do sagemarker integrated a lot with them – kinda one project 
+
+7.21.25
+
+Prompt engineering - 
+
+Mike Gallaher - Prompts effect prompts - can the model be
+
+Gather information from Tom and Chirag on the stability of software development using prompts - plateau effect and how LLMs can fit into traditional software development pathways. 
+
+Concerns over cost, how to evaluate the cost of evaluation  - randomly sample code in order to develop an empirical distribution to measure reliability. 
+
+8.1.25
+
+
+9.4.25
+
+MDA - Object tracking model, sandbox owner by the government that would automatically evaluate model object tracking for new technologies. Independent and government owned, learn the limits of performance and when they are not. 
+
+Model evaluation - put a quarter, in, have validated measures - validated internal and external validity. - Evaluation on 
+
+
+9.18.25 - Jonathan - location of the work as it relates the particular labs - work to neck down some of the locations and patterns - 
+
+	Network diagram associated with the papers I sent to Jonathan. 
+
+Distilled models or hyper specific content that could be used on a raspberry pi - or single boards. 
+
+Opportunities in health broadly - health IT - and LLMs as it relates to areas - 
+
+JTS - joint trauma systems - across the branches - first use at the point of care, ingested into a large system. Want to understand it in the aggregate. What patterns do we see in treatments - predictive modeling around what might work. How long does it take for someone to see a provider? 
+Come in off the battle field in the paper form - in the future hopefully there will be more digital and QR codes/smart phones. 
+Medical coding - analytics that happens after the fact, functionality to do predict analysis after collecting data - consolidation of di
+Collect the information and how it might be used - ask questions about a patient - based on prior data - what bias are there in a model based on demographics - 
+What rank
+Current JTS - need to be able to test the system - form DA 4700 - “self consistent” page 1 injury needs to match treatment on page 3. 
+Test to make sure the most common and edge scenarios to generate the text 
+Listen to a conversation and transcribing to make a medical note - keys and tags that allow it 
+Writing down hours 
+Synthetic data generation - keeping the distribution correct, only be exploring one part of the trauma space and not the others. - Risks associated with synthetic data generation - 
+Particular type of trauma that might also show as high blood pressure - should indicated that theres a 90% chance that they’ve got this one form of high blood pressure 
+Self consistent - hybrid - 
+Inside network - working on medical and using text to support clinic operations - fit inside the scope of work - health records - health informatics. 
+Have someone come to the call in two weeks. 
+Van - data problem - reverse engineering business logic from code - take the logic out of code 
+SQL reverse engineering - send Van some articles on SQL LLM 
+Dangers of running LLMs locally - as an issue - just a series of matrices and weights have can it run malicious code. 
+
+
+To Dos: Jonathan - get information for synthetic data collection and potential someone to join our call in two weeks. 
+Van - SQL LLM translation - reverse engineering any code to project requirements. 
+Security associated with LLMs if trained locally - executable - guardrails and permissions would need to be in place. 
+Research on have a model can be manipulated during training - like can we trust Deepseek at all? Even the small local model. - 
+Deepseak - issues. 
+
+
+SQL -                    Van to do need to send SQL to LLM translation.  
+          Jonathan -  Using text to predict health indicators 
+		      Object tracking paper network - where that research is occurring. 
+
+Van - Amazon text track to do OCR - another model that matches fields to whatever it find, forms are in poor quality ripped - if text around it are this it might be this feature. 
+10.16.25
+
+Object tracking stuff - not
+
+Can reach out to the names that popped up - not a lot of public environments. 
+
+Shoot some emails to those folks that came out of the network and see if there’s something I’m missing. 	      
+Question is how do we run this research, like doing some with a traditional GPU or somehow - define the environment. 
+Follow up - nothing up 
+Humonculous ATS - use case for JTS - defense health agency - digitizing the PDF and forms - outline of human front and back - annotate that image - let at a particular spot - indicate location of injuries. 
+Digital PDF forms - pretty easy to get that out of the form - get it out some places is easy - others are scans - have to register the image. Building a design drawing that might be digitized - annotated something - analyzing 
+Shakespeare highlights as it relates to notes in the margins - 
+Converting into a common known structure - how to convert it to a structured table - common data schemes for structures to the image part to the standard. 
+Object recognition - find all the circles, Xs, arrows - find thoughts features just goes directly - first extracting features ‘
+Trying to use those features from the text - image - Translating from one data structure to another feature - 
+
+Take a look at 2 stage models as it relates to identifying features - Gemini - pretrained - maybe
+
+Goal would be to identify hand writing on a doctors note and then translate that into a feature that can be used in conjunction with the tags in the PDF document. Thinking of this as a SBIR proposal.
+Review look - health records cools 
+
+11.13.13 
+
+Discussion of optimization at the edge how to use AI to enhance that process. 
+
+Van - Edge to Edge software solution - comprehensive edge strategy you need a infrastructure layer.  ATA solution strengths your solution no matter what the hardware being used. 
+
+
+Come to a problems with a stronger world view, now we come in a little weak. We have a sense for what is good and not good. Stronger clearer footing, to where we see the market  moving over the next few years. 
+
+Continuous learning system, there are pieces of this larger idea that we can already do - systems that are truly autonomous 
+
+12.12.25
+
+What does computing at the edge look like - how do these systems work together - Low SWaP-C,
+
+Edge container registration - how do they system run on their own. 
+
+Have models run on there without connectivity back to compute power. 
+
+How can quatuum affect their work - - 
+
+“Make data AI safe” - Can us the information on hand to measure - AI ready but AI safe - safe guards the 
+
+Bias - Case study practical application of these methods - tools necessary to test for “bias” and fairness as a service.
+For existing client - detecting bias 
+
+Edge 
+Quantumm Computer 
+Bias/Fairness - white paper
+
+Data sharing with edge stuff in the could but want a AI component to include - secure data to and frame the edge and then run secure data models on top of.  
+
+To dos - reach out to Stephen, gather information on automatically tracking bias and think about edge stuff - maybe mention SWaP-C
+
+Scott Jack - Former Air Force guy that does consulting. High value use case that just seemed to be too hard to tackle - but maybe we can do it now. Automated classification of data - secret/top when the classifications change when you aggregate. Analytics on might have created a higher classification than the network would allow. 
+
+Unsolvable problem - how to classify data as it relates to aggregating information then it turning into a different classification. 
+
+
+
+
+
+
+1.15.26
+
+Edge 
+Quantuum 
+Automatic Bias Classification 
+
+How to use AI to accelerate processes for delivering software but not compromise quality.
+
+
+New guy starting Tuesday 4 or 5 last six months - couple more next few months
+
+DHA work joint trauma system - Dr. Stolings leading the work - wrote a couple of white papers, 
+Data science sandbox for the systems - doing some data extraction - not used in care - used by analytics or analysis part of the system. How to change system - performance efficiency after action reports.  
+
+Data science layer on top of the above system - they like R - biomedical - stats folks like it - 
+Like to have staff data scientists running R&D projects and analysts have tended to be generalists - do we have medical folks that could help support DHA. We have a ton of medical folks - in a year or so might want to start mining that information. 
+
+Mostly - trauma care data - during wartime - patients received gunshot - this is when the turncet went on and do we see differences on how the outcomes are being generated based on type of trauma care. 
+
+Not long term opportunity - STTR - doctor stallings - 4 to 5 fulltime contractor people. 
+
+STTR - could be a good start - long term grants option - I have staff research and I want them to perform these things. Need to have to find - 
+
+Need to find someone on our side that is interested in analyzing - write a letter of support - to get this in - trick would be finding the STTR topic - open topics can be direct to phase II. 
+
+Find someone - medical info -
+
+Contact vehicles might already be there - need to convince him that ATA can do this work. 
+
+Long standing relationship - and identify who the person is and have them chat - try to find the right person on my end. 
+
+To Do: Talk to Tom about work and maybe Porter
+
+
+Accuracy and On-boarding 
+
+YOLO - good if normal 
+
+Texttrack - projections on the formal - hand label output with a Random Forest with 10 examples of the fields, just ish right - onboard a new form need ten examples of every possible field in order to find the lock - filling out 
+
+100 fields could work 
+
+1050 forms - 10 examples of every field - took me a week to just fill out any forms. 
+YOLO extracts the sections then it draws a box - find more examples to help with the idea that 
+
+YOLO extracts the sections - hand labels all the fields and the 
+
+
+

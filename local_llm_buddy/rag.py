@@ -28,6 +28,7 @@ from langchain_core.prompts import ChatPromptTemplate
 from langchain_core.runnables import RunnablePassthrough, RunnableSerializable
 from langchain_ollama import ChatOllama
 
+
 from .config import Settings
 
 # ---------------------------------------------------------------------------

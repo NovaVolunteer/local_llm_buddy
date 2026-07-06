@@ -1,0 +1,52 @@
+ATA Zero Day Form Extraction Meeting
+Transcript
+
+
+Overview
+
+Meeting Title: Zero Day Form Extraction Meeting Attendees began by discussing logistics and confirming attendance, with some participants joining late. The main topic centered on approaches to extracting structured data from previously unseen ("zero day") forms, particularly in the medical domain. The team reviewed their current workflow, which involves using a Vision Language Model (VLM) and Amazon Textract to extract key-value pairs from forms, then mapping these to the OMOP (Observational Medical Outcomes Partnership) standard for medical data. They noted that this process works best when the form structure is known, but is less effective for truly novel or unstructured documents. A key insight from a recent conversation with a colleague (Dave) was shared: rather than focusing on extracting key-value pairs from unknown forms, it may be more effective to simply extract all text and use NLP to identify OMOP concepts (such as blood pressure, medications, injuries, demographics) directly from the text, regardless of its structure. This approach would reduce the risk of "hallucinating" data and focus on high-confidence extraction of known medical concepts, even from unstructured notes or handwritten documents. The group discussed the technical implications of this paradigm shift. They considered training a model specifically to recognize a defined set of OMOP concepts (about 300), which would make the extraction process more focused and testable. They also discussed the potential to use tools like AWS Comprehend Medical for concept extraction, but noted its limitations (e.g., sensitivity to typos, lack of tunability) compared to large language models (LLMs), which could be fine-tuned for this task and potentially run locally for cost efficiency. The conversation then shifted to the value of confidence scores in extraction, the possibility of combining positional/contextual information with NLP outputs, and the broader applicability of this approach to other domains (e.g., financial forms for DFAS). The team brainstormed about building a system that could leverage both model confidence and learned patterns from form layouts to improve extraction accuracy. In the latter part of the meeting, the discussion moved to knowledge management and long-term memory for project documentation. Participants shared experiences with tools like Otter for transcription, Claude and OpenAI's "Dreamer" for persistent project memory, and the challenges of storing, retrieving, and querying project knowledge. They debated the merits of different storage architectures (file trees with YAML/markdown, vector databases, triple stores) and the importance of making project knowledge accessible for both real-time and long-term use, including cross-project knowledge sharing and reporting. The meeting concluded with action items to formalize the new zero day extraction approach for client presentation, and a plan to reconvene the following week to review findings and further develop the proposed workflow. There was also interest in documenting a sample architecture for integrating AI-powered knowledge management into their project ecosystem, particularly leveraging Microsoft and OpenAI tools.
+
+Action Items
+[ ] Create a system architecture for what knowledge retention for Jonanthan and ATA might look like
+[ ] Pull information for Van on zero day document conversion might look like, research and documents that support his appoarch
+Outline
+Discussion on Zero Day Form Extraction
+Speaker 2 introduces the topic of zero day form extraction, explaining the current approach of looking for key value pairs and organizing them into a standardized medical structure using the Omop standard.
+Speaker 2 mentions a conversation with Dave about extracting text from non-standard forms and looking for medical concepts like blood pressure measurements and demographic information.
+Speaker 1 and Speaker 2 discuss the potential of using VLM or OCR to extract medical concepts from text, emphasizing the need for confidence levels in the extracted data.
+Speaker 3 suggests using Comprehend Medical for NLP to extract ontological meaning from text without field mapping, focusing on OMOP concepts rather than medical codes.
+OMOP Concepts and Medical Data Structure
+Speaker 2 explains the OMOP process as a medical data structure standard that includes medications, tests, procedures, conditions, and patient history.
+Speaker 1 and Speaker 3 discuss the flexibility of the OMOP standard and the potential for combining confidence scores from NLP with learned confidence based on form type.
+Speaker 1 suggests using a system that allows users to provide descriptions of forms to improve the confidence levels of extracted OMOP concepts.
+Speaker 3 mentions the need for filtering and structuring the extracted data to meet the requirements of the DOD's financial system.
+Comparing Comprehend Medical and Large Language Models
+Speaker 3 expresses interest in comparing the performance of Comprehend Medical and large language models in extracting medical concepts from text.
+Speaker 1 suggests using a tool to test the quality of responses from different large language models and comparing them to Comprehend Medical.
+Speaker 3 notes that Comprehend Medical falters on typos, especially in medication names, which large language models might handle better.
+Speaker 1 proposes using a local large language model like Llama 3 for hyper-tuning and fine-tuning specific use cases.
+Long-Form Knowledge Retention and Project Management
+Speaker 1 discusses the use of long-form knowledge retention tools like Dreamer and Claude for project management and knowledge aggregation.
+Speaker 1 explains the process of using Otter for transcription and integrating it with a project management tool to capture meeting notes and action items.
+Speaker 3 mentions the challenges of extracting and sharing information across an organization and the potential benefits of using long-form knowledge retention tools.
+Speaker 1 suggests creating a shared space for project documentation and using natural language queries to retrieve information from the project archive.
+Implementing Long-Form Knowledge Retention in Project Workflows
+Speaker 3 asks for a description of how long-form knowledge retention tools could be implemented in project workflows for a small team.
+Speaker 1 suggests using a simple file structure with YAML tags for project documentation and integrating it with a project management tool.
+Speaker 1 explains the benefits of using a vectorized database for querying project information and the potential for connecting it to other tools like Zapier.
+Speaker 3 emphasizes the importance of creating a shared space for project documentation and using natural language queries to retrieve information.
+Cross-Pollination and Information Sharing
+Speaker 1 discusses the potential for long-form knowledge retention tools to facilitate cross-pollination of information across different projects and teams.
+Speaker 3 mentions the challenges of sharing information across an organization and the potential benefits of using agents to perform tasks like opportunity identification and proposal generation.
+Speaker 1 suggests creating a default AI project space for every project and using agents to learn and manage project information.
+Speaker 3 highlights the importance of creating standard documents and using agents to filter opportunities and shape responses to RFIs.
+Vectorization vs. SQL Schema for Querying
+Speaker 1 explains the benefits of using a SQL schema for querying project information, allowing for more robust structuring and searching.
+Speaker 3 questions the future of vectorization and whether it will eventually be abandoned in favor of more traditional querying methods.
+Speaker 1 suggests that vectorization is useful for generating new information but may not be as effective for querying and retrieving existing documentation.
+Speaker 3 notes that large language models are not designed to be data stores and that querying them may become less effective over time.
+Final Thoughts and Next Steps
+Speaker 2 asks for a follow-up meeting to formalize the approach for presenting to the customer.
+Speaker 1 suggests scheduling a meeting for the following week to discuss the proposal and review the transcripts.
+Speaker 2 confirms the need to present a zero day approach for extracting information from unknown media, including forms and notes.
+Speaker 1 agrees to prepare for the next meeting and gather additional information to refine the proposal.

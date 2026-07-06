@@ -1,0 +1,58 @@
+Bi-Weekly ATA
+Transcript
+
+
+
+Overview
+
+The team discussed Brian Wright's progress on developing a long-term memory storage system using Otter for team notes, which will be vectorized and stored in a Superbase database. Brian plans to create a front-end for querying and summarizing team conversations. Jonathan Seale suggested exploring funding opportunities for this project. They also discussed the potential of using AI to create knowledge graphs for structuring information and improving efficiency. Van highlighted the need for a test harness to evaluate AI model quality, particularly for medical and visual applications. Finally, they considered the impact of AI on pricing strategies and the need for metrics to measure efficiency gains.
+
+Action Items
+[ ] @Brian Wright - Design and implement a prototype ATA knowledge assistant that uses Otter transcripts, vectorizes them, stores them in a Supabase database, and provides a simple front end for querying and summarizing ATA conversations (including monthly/quarterly/yearly summaries), with an architecture that can later support embedding agents and a knowledge graph.
+[ ] @Brian Wright - Adapt the existing large language model quality and drift analysis tool so that it can be used in a medical context, copying the current repository and reformatting the quality metrics and test prompts for medical use cases.
+[ ] @Brian Wright - Design an expanded test suite for the medical model quality tool that covers trauma, drug interventions, and basic diagnostic criteria, and explore whether the tool can also support image-based visual LLM evaluations.
+[ ] @Brian Wright - Explore adapting the model quality evaluation framework to work with visual LLMs for form-data extraction, including how to use images as input and how to measure performance on form interpretation.
+[ ] @Brian Wright - Research existing literature and market studies on AI efficiency gains and cost reduction in software development, and compile a summary of typical efficiency metrics and cost-reduction norms that can inform ATA’s pricing strategy.
+[ ] Continue researching and identifying potential funding opportunities (e.g., NSF, DARPA) for the software-development-context knowledge assistant and related AI tools.
+[ ] Reconnect with Brian after gaining a clearer understanding of the client’s OpenAI-based form-extraction approach to continue the zero-day conversation.
+Outline
+Van's Personal Update and Meeting Kickoff
+Van informs Brian that he had to leave the meeting briefly due to a personal matter involving his father's health.
+Jonathan Seale mentions that the previous meeting ended early due to attendance issues.
+Brian Wright and Jonathan Seale discuss Van's personal situation, expressing sympathy and concern.
+The conversation shifts to technical topics, with Brian mentioning his use of a bot for note-taking and long-term memory storage.
+Discussion on Team Assistant and Architecture
+Jonathan Seale recalls a previous discussion about creating a team assistant or context tracker.
+Brian Wright explains his progress on the extension through Microsoft and the use of Otter for long-term memory storage.
+Brian describes the process of vectorizing notes and storing them in a Superbase database, with plans to create a front-end for public access.
+Jonathan Seale inquires about hosting the data, and Brian explains it is hosted in a code space on GitHub, using free tier resources.
+Exploring Knowledge Graph and Information Structuring
+Jonathan Seale suggests exploring funding opportunities for developing the team assistant further.
+Brian Wright and Jonathan discuss the potential of creating a knowledge graph to structure information from team conversations.
+Jonathan proposes using the knowledge graph to evolve over time, capturing requirements, implementation evidence, and constraints.
+Brian suggests using a graph-based approach to represent facts and their relationships, potentially integrating with language models for querying.
+Challenges and Opportunities in Knowledge Graph Maintenance
+Jonathan Seale raises concerns about maintaining the knowledge graph without becoming burdensome for the team.
+Brian Wright suggests using code review bots and other data streams to enrich the knowledge graph.
+The idea of integrating the knowledge graph with existing workflows, such as code review and merge requests, is discussed.
+Brian proposes creating a prototype to test the feasibility of the knowledge graph and its integration with team processes.
+Exploring AI Model Quality and Drift Analysis
+Brian Wright introduces a quality model for foundational models, tracking the quality of responses over time.
+He explains the concept of model drift and the potential impact on AI model performance.
+Brian offers to create a similar tool for specific models used by the team, such as mini and 4.0 models.
+Van and Jonathan discuss the importance of using the best models for different tasks, considering factors like speed, performance, and cost.
+Medical and Visual Language Models
+Van expresses interest in developing medical and visual language models for specific tasks.
+Brian suggests creating a test harness for visual models to interpret images and a medical model to handle medical questions.
+The conversation touches on the challenges of using AI in medical contexts, including the need for accurate and up-to-date information.
+Brian offers to adapt his existing tool to focus on medical applications, potentially including image interpretation and diagnostic criteria.
+Impact of AI on Pricing Strategy
+Jonathan Seale raises the issue of how the use of AI will affect the company's pricing strategy.
+The team discusses the potential for increased efficiency and the need to balance pricing with market expectations.
+Jonathan suggests collecting data on efficiency gains and market trends to inform pricing decisions.
+Brian and Jonathan agree to research existing studies and surveys on AI efficiency in software development.
+Next Steps and Action Items
+Brian commits to working on the architecture for embedding agents into teams and creating a knowledge map.
+He plans to adapt his large language model drift analysis tool for medical applications.
+Van agrees to reconnect once he has a better understanding of OpenAI's form extraction approach.
+The team concludes the meeting with a plan to follow up on the discussed topics and next steps.
