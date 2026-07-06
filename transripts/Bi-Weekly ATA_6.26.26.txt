@@ -1,0 +1,439 @@
+Van  0:20  
+I'm Hey, Brian, can you hear me?
+
+Brian Wright  2:06  
+Yeah, I got you all
+
+Van  2:08  
+right. Great,
+
+Brian Wright  2:11  
+it was just that good. Good, I'm doing all right. I'm here in still in Wisconsin.
+
+Van  2:18  
+Brian actually got a, I got right downstairs real quick. All good, rejoining five minutes. Okay,
+
+Brian Wright  2:27  
+okay, sounds good. Just hang out with my bot, I I think I Ooh, earlier than expected.
+
+Jonathan Seale  4:40  
+Hey, last last meeting ended early.
+
+Speaker 1  4:46  
+Hey,
+
+Jonathan Seale  4:48  
+people did not show up that were supposed to be there, so
+
+Brian Wright  4:51  
+that makes it, that makes it easy to end.
+
+Jonathan Seale  4:54  
+Like, well, we can only do one agenda item. So,
+
+Speaker 1  5:00  
+oh,
+
+Brian Wright  5:00  
+How responsible you? You just jumped right on to your other meeting options, just seamless, just like that. Yeah,
+
+Speaker 1  5:06  
+yeah,
+
+Brian Wright  5:08  
+we'll take that as a compliment. All
+
+Jonathan Seale  5:10  
+right,
+
+Brian Wright  5:12  
+Van was here, and then something happened. You had to go downstairs and be back in like five minutes,
+
+Jonathan Seale  5:18  
+and he.. I don't know if he told you, his dad had a heart attack on Monday.
+
+Brian Wright  5:23  
+Oh gosh, it's..
+
+Jonathan Seale  5:24  
+and so he's, yeah, he's been at the hospital all week, and he was supposed to be released yesterday, and then was not. So he's.. he's got a lot going on.
+
+Brian Wright  5:36  
+Yeah, how old is his dad? Is it
+
+Jonathan Seale  5:39  
+his dad is older? I think he's, he's over 85 I wouldn't give you these, he might even be in his 90s.
+
+Speaker 1  5:47  
+Okay,
+
+Jonathan Seale  5:47  
+he's got an older, he's got an older dad, so yeah, and yeah, and his, his mom is also just like not able to take great care of herself, and so there's a lot to kind of manage and juggle there.
+
+Brian Wright  6:09  
+Yeah, that stage of life comes for us all eventually. I'm surrounded by octetarians. I feel like in the next five years it's all going to go downhill.
+
+Speaker 1  6:20  
+Yeah,
+
+Brian Wright  6:21  
+but a lot of my time in elder care pure form and stuff. I sent you, I got, I got my, my bot friend in here with us right now. So I sent you the bot notes from last time, they're longer than probably they should be. It asked for the super long version, but happy to talk about anything you want to, or review some of these things, whatever.
+
+Jonathan Seale  6:48  
+So, yeah, I remember we had a discussion about a, like, an architecture for a kind of, for kind of that team, I don't know what you call it, team assistant, kind of team context, Chino tracker, sort of thing. I don't know if you had an opportunity yet to do that,
+
+Brian Wright  7:09  
+but what I have done, and I know we talked about a little bit about this, is like the extension, like Dreamer, right, through Microsoft, and like the potential options for like that long term memory storage, and so I've started, so I don't, you know, you know what Otter is, right? So I started doing that's what that thing is, that FOD is Otter, and then that's retaining long form text, and I'm vectorizing that, and then I'm going to store it just in, like I said, in Superbase database, and then what I'm hoping is that I can make that publicly available for you guys, I'll put a front end on it, and then I'll systemize it, just deliver it to you, and then that's something like as a way to do it. So I started to put all the components together, I just hadn't been able to like create basically like the front side, so all those notes and stuff that I'm sending to you, they're getting sent to a vector database, it's going to store just it's just in super base, it's real straight, real simple. And then I'll create a little like client front end, so we can run queries on it, just to see like where we're at. Do you
+
+Jonathan Seale  8:11  
+host that somewhere, or you just have it on the laptop?
+
+Brian Wright  8:15  
+I'm hosting it in a code space, so like it's a given the like size of the data that we're using, like I still just like all in the free tier, so that's like GitHub's, like you know, hosted space, there's no GPUs or anything there, it's just they charge me based off usage, which is like, you know, it cost me anything, it's like 10 bucks a
+
+Speaker 1  8:35  
+month,
+
+Brian Wright  8:35  
+so I'm doing it up there, but I'll run a, I should be able to create a, like, a GitHub action that allows that, like, computational environment just to spin up. It's just like a Docker container that runs in the back, and then you guys can just spin up your own code space on top of it. I don't even have to have the action, you just click on the button and it'll populate it up. But I think it also might be fun to create, like, a little, like, you know, just a little baby client front end that says like, and I want to see how well it works, because what I'm trying to do is tag these like pretty aggressive like dates, and then like get it to create meta structures associated with the topics that the headings that we talked about, those headings are getting loaded in as essentially like features associated with that particular conference conversation, and then there's also like a a feature that says what did we talk about on a monthly basis, quarterly, and then a year, and so it'll start to do summarization based on that, but the idea that I'm tagging it for ATA, I'm trying to make it easy for myself. There's a lot of stuff I've put together, but like if I say, "Tell me what I talked about first quarter 2025 for ATA, it should be able to pull out and just give me a summary of what that looks like. I don't know how well it'll work, because it's all just like, you know, they'd have to find that date and then find that name, and then pull the exact notes from that period, which it should be able to do, capturing them as like individual documents for each one of our conversations. Anyway, once I get it up and running, I'll try and ship it all over to you guys. I don't think it's anything too complicated. It's all like, you know, basically freeware, open source stuff, and just specifically around this one use case of like having someone join your meetings and then having some space unified for the team that they can query and ask questions from those particular, you know, you can do it all in Otter AI, like it'll, it'll say, here's the thing, but it doesn't give you like the fidelity that you really want as it relates to like in between individual clients, so like I'm having to go back and kind of retag the like the meeting titles and the dates and things like that. What did you just like
+
+Jonathan Seale  10:37  
+export like a file out of Otter, and then, yeah, upload that somewhere.
+
+Brian Wright  10:42  
+Yeah, they have, so I can share like this. Otter has, like, a long form. They have the transcript. You just want the transcripts, just like, download the transcript, but they have a long form version. Let's see, which is what I shared with you guys, so like this, you can see this. This is like the long form, and it's pretty long, like action items, like subject headings, things like that. Like that's enough, you know? I mean, do you have the transcript? Like, if you just wanted to do like raw transcripts, you could do it too, but you know, this seems like a little bit better, so that's what I've been like exporting out, and you mean you could just, you just download it, essentially exactly where you do it, but you could just take, I mean, you could just copy the summary, but there's an option where it has an API where you can connect it, and then just pull out your, like, pull out your
+
+Speaker 1  11:41  
+particular paper.
+
+Jonathan Seale  11:42  
+ever used your teams must have a their own service now for something like this? Have you ever used anything else other than Otter? Now,
+
+Brian Wright  11:53  
+the reason I use Otter is because I threw a starter, because it seems to be platform agnostic, so there's all the web browser extensions, that's why I plopped Brian's note taker in here, and then if I'm on Zoom, it's native to Zoom as well, so it pops it up, so I go from like one to another,
+
+Speaker 1  12:09  
+but
+
+Brian Wright  12:10  
+yeah, I don't know, I'm sure, I'm sure Teams has something, I know that there's there's fancy stuff I could have bought through Google that would have been an extension of like the work workforce suite, like I had through Google, so I'm sure Microsoft has competing, but it was expensive. It was like another 10 bucks a site license, and I was like, "Jesus, but it's a whole bunch of AI stuff. I just.. there's no way I was gonna pay for that every month. I'm, you know, I basically just have like three site licenses for like me, and occasionally a person that helps me, and that would like, you know, go from 30 bucks a month to 60 or 70 bucks a month. I'm like, just don't start using it up.
+
+Speaker 1  12:46  
+Yeah, so
+
+Brian Wright  12:46  
+this Otter thing was super cheaper. It was like, you know, basically free where they got paid like seven bucks a month because of the usage. So, but I can look into that. I mean, I can explore it and see if there's something from Microsoft that's native. Everything else is like pretty, you know, pretty straightforward. The thing I don't.. the thing I don't know how well it's going to work, and I just haven't gotten there. It's like its ability to like record those dates in a structured way, and like pull out summaries based off the tamper roll, you know, without some type of more like SQL, you know, database that I like load push structures to, where it has dates and times to it. I don't want to have to go that far. I'd rather just be like a big, you know, vector blob for each one of the conversations, and then be able to merge them, you know, on demand. So
+
+Jonathan Seale  13:40  
+I, I found this week, so I don't think NSF did it like this before, but NSF has a Siber Sitter program, and it's at least now structured as more like it's like multi-phased, where you kind of pitch an idea, they tell you if they like it, and if so, they invite you to a fuller, fuller proposal. And anyway, I wonder if this is something that, like, we can get some funding to develop this out with the with with the kind of, like, you know, software development team context, sort of application, right? Yeah, and I, because I've been thinking about things like how what I would like is something that kind of intelligent constructs this like model or the theory for the system that you're building, so it's less about just tracking the conversations, but more about taking those con those conversations and then translating them into a structure knowledge base of your system, which then maybe you query, or it gets updated over time, and kind of like evolves in time, so it takes a little bit beyond just like document tracking and document tagging, and into kind of information information structuring, you know what I mean.
+
+Brian Wright  15:16  
+Yeah, I think that's like pretty feasible, you know. I like that idea. I mean, especially the nature of how, like, these.. I mean, Otter AI is great, you know, but it's just.. it's using very basic summary syntax to come out. But you can imagine, like, if you use, like, a more robust reasoning model, like, and you had a series of conversations over time, it could totally create late structures associated with the evolution of those concepts through those series of conversations I think definitely that and then I think like what you would do is try and like not just do the natural dialog that you're presenting as like the latent feature structure but you would try and somehow buttress those latent feature structures associated with actual, like deployment documentation, or like type of other structural, so it had context for the elements that it was looking at. Yeah, I also think it's pretty possible. Yeah,
+
+Jonathan Seale  16:14  
+what I was kind of thinking was, I mean, you could almost give it anything, right, and you would just kind of say, like, you're looking for things like requirements and implementation evidence constraints, like there's probably a set of, you know, half a dozen to a dozen kind of different like object types that would be used to describe a system, and you have it kind of looking for, for those things, and then you just kind of turn this into a graph, not like vectorized for searching, I mean, like a graph, like a knowledge graph, right, where it's like kind of like a like a series of facts, like, like every node in the graph is a fact that might point to another node, because it's like based off of some ontology, where it's like this is a design decision that might be a node type, and here's the evidence for that design decision, right? And here's the constraint that is related to it, right? Yeah, anyway, that's the kind of thing,
+
+Brian Wright  17:22  
+and you know what else is, yeah. Sorry, not to interrupt. I did interrupt.
+
+Jonathan Seale  17:27  
+Well, I was gonna say, I become a little worried about self consistency, I guess, within the knowledge graph. Yeah, but if maybe you would never turn to the knowledge graph to like look for a particular fact, and assume that that fact is true, but use it more to interact with the language model that would probably be more correct than incorrect, you know, because it had collected kind of this evidence to back, yeah, anyway, that's that's what I was kind of thinking,
+
+Brian Wright  17:57  
+yeah, no, I think that's good, yeah, and I do think it's like best practice for us all to remember that it's not a knowledge store, like there's not going to be knowledge in there, but query, like knowledge that you've created, like in searching and presenting it to you in a way where you can have a conversation with it, is ends up being like really valuable, especially as it relates to just latencies associated with like what did we talk about, or like what is that, when did we make this decision, things like that, and you know the other interesting part about this is that the which I didn't know until I started using it, maybe I paid a little bit more for it, but every time you do, it's like I did a screen share, there the notes will capture that screen share as an art, as an archive associated with that particular, yeah, so it'll it'll summarize what that picture looks like, so if you were having a conversation or presenting documents during the call, and again, I know you'll have an archive, maybe associated with, but it'll also have these images there, which are, which is also like pretty, pretty useful, like I feel like that's the thing we talked about, and it'll, I don't know, the probably test it, like if you're changing the image, there's a capture, like how often does it capture like new images? I don't know, maybe just when it's first displayed. If I had to bet, but it also might be interesting to think about, like there's lots of lots of things you could explore, like if we were to give the large language model a name for this particular project, you know, and we had a conversation about something, and then we were like, okay, Jimmy, make sure to really pay attention to what we just said,
+
+Speaker 1  19:26  
+right?
+
+Brian Wright  19:26  
+And then, like, your Corey, every time, is like, Jimmy, what were the big key moments of this? And then they're summarizing it, but also, like, you know, now it knows its name has been called, like, its name, but it knows, like, the bot name has been recognized, and not as a signal of some, you know, some, you know, confluence of a moment that's important,
+
+Speaker 1  19:44  
+right? You
+
+Brian Wright  19:45  
+start to break in these like behavioral constructs, and then it becomes like, really, then it's then it is the exercise of like the change of the nature of the meeting, right, that becomes more like this, you really are, you're integrating Brian's note taker, like, as an intelligent being, right, as compared to just, yeah, just sitting there,
+
+Jonathan Seale  20:02  
+and I was thinking, there, you know, there could be kind of a review process, because, like, guess, like, I was thinking kind of like, where would a, how does this kind of go into the workflow of kind of a normal person's work day, like a developer on a project, or like the technical lead, right, and they might spend part of their day like, let me go into the knowledge graph and see what new information and things that learned and like approve or deny these new facts, right, or or maybe, maybe that happens like when you, when a developer commits something, or like has a merge request into the repo, maybe that, and then could even put back as a commenter into the merge request. Here's some new facts I think I learned about the project, you know, use your, you know, you could approve them right there through your merch request. Yeah, that's right. Interesting, like integration point. Anyway, so I just been thinking, too, like, how do you, how does this not become burdensome on the team to like maintain that knowledge graph while also not letting it just sit in the background, because then I feel like it could just start to focus on the wrong things or be picking up incorrect facts, you know.
+
+Brian Wright  21:34  
+Yeah, that's interesting. Yeah, I think as you add more data streams to it, like this idea behind the knowledge graph becomes more of a more of like a real reality, you know. You think about where you're creating, you know, essentially usable content, you know, on any one project. Certainly, the code base is going to be one of them. There's no reason that you could have a centralized vehicle, that I mean, that's easy too, right? That you know that you could add, because the agents, the agents can be added on essentially code review bots, right? So every time there's a command or a merge is taken, they'll do like their, like, you know, third-party review or something, and then seems like you could, you know, as long as it's inside the walls of the security system, you could then export like whatever review context came out with the bot, just use that as natural language, even if you weren't using like the code itself, you could just use like essentially what it learned from that process, and then work to validate it, you know, as it evolves like the knowledge. I don't remember to be like this central, yeah, then it, yeah, it would have to be I Yeah, let me think. Let me think about that. I, I could definitely do like the first prototype as it relates to just a single stream, and then just make it like a publicly available IP, or whatever, and have, have you guys query it and see if you can have a like a dialog with based off our conversations that we've had the last quarter, just to see how it works, and then maybe there's a way where I can, I'll build, like, a, you know, like some, I mean, I got lots of, I got lots of little, little, you know, little software projects. I'll give it access to the software projects and see, see if I can include that stream somehow. That sounds like fun. Actually, I have.. I'll continue.
+
+Jonathan Seale  23:31  
+I'll continue looking for these funding opportunities on it, and then I don't know. This seems like a especially for things like NSF, right, where they, it's an organization that likes more of an academic kind of bend, you know, to some of these things like pure kind of research sorts of questions, right, not necessarily applied things, so that's where, you know, your involvement might be valuable there, you know, similar to something like, you know, DARPA might be interested in something like this as a capability that helps the DOD for all the software they develop, you know.
+
+Brian Wright  24:10  
+Yeah, that's interesting. And then it's like, if those knowledge graphs are able to be used in some, like, a comparative manner, like if one software project, one team, one orientation, like what they're building is similar, like cosine similarity, or some like even you could just do like you hierarchical graphs. I mean, you could just do like basic like system graphs to see how close they are. If there was a standard ontology with which you can compare it, that might be really interesting, because that would help you a lot, especially in high dimensional organizations that have, like, diffused groups that are always like working on lots of things, but it might, might inherently be fairly overlapped with one project to another. So, essentially, that the development of that knowledge graph, assuming that there was a standardized, a little bit of a standardized on top, like, so there had to be some baseline, you
+
+Speaker 1  25:01  
+know,
+
+Brian Wright  25:01  
+then you could use it to compare to see how similar those particular projects are, and that's that would be really helpful for all sorts of reasons, you know. Yeah, it might be a high, might be a high bar, but then, but then maybe not. I don't know, maybe it's like the simplest thing you think of first, you know, it's like, you know, what areas you know, if you were to take like these general conversations and like put them into one of these like research bots too that produced like literature and citation graphs, like how similar are the conversations and how similar the citation graphs that are coming out, like that's pretty straightforward, and then without exposing code bases to, like, you know, summaries of exactly what the orientation, or like, what they're working on, what application area it is, like, that would also be, like, pretty straightforward.
+
+Speaker 1  25:50  
+Interesting thought.
+
+Brian Wright  25:54  
+Yeah, that thought brought up a speaking with another client the other day, and this is, like, one of their, they're trying to figure out how to leverage AI to do this exact thing to create not knowledge graphs, they just want to create summaries of like projects that they do they're finished or something like that, and then have those summaries be publicly available, so people in other parts of the organization can read the summary and be like, "Oh, crap, you just created this, you know, application, this AI application that would be really great for my particular use case, and so right now those are all siloed and isolated, so they want to make it almost like a dashboard that's searchable, but it's not, it's not, it's not designed to create like a, you know, clunky, you know, it's almost like a, you know, it's just like tablets on a website, you know, you kind of query something and then five projects come up, and you read them, but there's no intellect, there's no like systematic matching based off what's been done.
+
+Jonathan Seale  26:48  
+Created some Chat GPT skills to essentially do that, like we connected into our code repos, and like maybe the contract, the PWS, and yeah, requirement documentation, and then I've got just like a really large skill that in one shot will produce like a report on, like, here's what that project's all about.
+
+Brian Wright  27:12  
+Awesome,
+
+Jonathan Seale  27:12  
+and then I essentially store those in SharePoint, such that then you can ask questions of it. It's like, tell me a project that we've done before that's related to this topic, and it can kind of look through those and say, oh, it, it matches these projects based off of technology used, or like,
+
+Brian Wright  27:32  
+yeah,
+
+Jonathan Seale  27:32  
+customer domain, or whatever, you know,
+
+Brian Wright  27:34  
+yeah, yeah, I like that, that's a good idea, yeah, there's no reason not to do that type of stuff, I feel like getting easier and easier. That's great. Well, let me tinker around. I'll create - I will actually create an architecture instead of just yada yada, whatnot. And I'll see if I can create a little front end that we can play with.
+
+Speaker 1  27:53  
+Okay, yeah,
+
+Brian Wright  27:54  
+we'll see how well it works. Yeah, okay.
+
+Jonathan Seale  27:56  
+I like that.
+
+Brian Wright  27:58  
+So,
+
+Jonathan Seale  27:58  
+hey Van, you got anything before we end here?
+
+Brian Wright  28:06  
+Her, we can't hear you if you're talking,
+
+Jonathan Seale  28:12  
+you might have had to step away.
+
+Brian Wright  28:14  
+Okay.
+
+Jonathan Seale  28:16  
+Alrighty. Well, thanks, Brian.
+
+Brian Wright  28:18  
+Yeah, no problem. Happy to do it. I also, if you guys are interested, I've been tinkering around with, and I can say this to two. It's a, it's a quality model for the foundational models. I have, like, I don't know, I think I got like seven or eight like basic foundation models that are in there, like everything from four oh to like Gemini things like that, and I created reasoning arguments, coding arguments, and then I think, like, deep thinking, something like that, arguments across them. So I'm pinging it, and then tracking the quality of the responses over time. The theory that I think there's been some.. anyway, there's good articles about this, so that there's been some degradation, and like certain models, and they keep retraining them, and so I don't know, I've been poking away at it. It's a just another like a click software that's pretty, pretty lightweight architecture, but the idea is to use it over time to track and see how, if like the same model with the same prop, same reasoning argument degrades, and I've used, I've been using it for like a month, and I'm just storing on like in a pretty simple like database again, with the idea that it's back, we can see if it, if it in fact does change, so I can make a copy of the entire project, like if you guys are yours in certain foundational models, or like you know you're primed for like the Microsoft suite of things, and like you let me know, and I could shape it around like particular use cases, and just, you know, prompt it every day, capture the information, then give you an idea, like I have like seven or eight different metrics, like whether like those models are changing or not, and if it looks like it starts to drift a little bit, it's a little bit of just like drift analysis, looks like it's shifting a little bit, I might just.. I could send you guys a red flag and be like, hey, you know, I know you're using TPT, you know, whatever number four oh, like a lot of your like product deliveries just FYI saw like a pretty big shift over the last month relative to the content quality coding.
+
+Jonathan Seale  30:17  
+That's interesting. Yeah, I mean, we're we've got a license now that we've, I mean, it's still in our pilot phase, but it's pretty widely adopted now with Open AI on our team, using it for both kind of design assistance, you know, writing code generation, but yeah, that's what that's what our team uses, you know, mostly.
+
+Brian Wright  30:43  
+Okay, well, if you know which specific models they use the most, like as an example, there's a paper that came out in 2024 which is, which is bold, but it measured like 3.5 and four oh, like on basic, like mathematical reasoning, like for some period, it for two months, like you never know how they're retraining these models like on the fly, but for a period of like two to three months, like 4o was wildly underperforming basic mathematical logic as compared to three five, and then it changed and it went back up, they just track, and it happened to be that they were experimenting, it's a little lab in Berkeley that just does these kind of, you know, they're interpretive experiments, and so someone said that to me, it's like, geez, given the variety of, like, the different models everybody's using, and how they're retraining them, be really interesting to, like, track over time to see if they are shifting, especially it seems like that now they're in, like, these hyper competitive, you know, not all these companies are going to survive, you know, so it's like there might be a business argument for like going to like smaller, more stable models, essentially. That's my underlying theory, is like if they keep updating and changing across a bunch of different factors, and there's no, you don't, you can't really know like how they're doing that, or when they're doing it, or if they stop support for what model, and move on, and then that one just naturally degrades like a high risk thing, anyway. So, yeah, okay,
+
+Jonathan Seale  32:11  
+yeah, I use.. I mean, I just use whatever the default is, like when I'm in here, it's using five five,
+
+Speaker 1  32:17  
+yeah.
+
+Jonathan Seale  32:17  
+I don't.. I don't know, we've got some code review agents, I don't know if that's always just using the default kind of latest or if that's using a specific model.
+
+Van  32:28  
+Can you guys hear me? Yeah, we got to
+
+Jonathan Seale  32:30  
+hear you now.
+
+Van  32:31  
+Okay, I don't know why I wasn't thinking of Mike earlier. Yeah, we use the mini model for speed performance simplicity, and to reduce costs for most code, right, because of the limitation on sessions and contexts. Most people are using the latest models, but they use default speed and medium reasoning on research, right, everybody uses the top time model with the deep thinking, and with the extended speed, or whatever the increased speed, and that's because when you do that through the web UI, it's unlimited, whereas when you're using Codex, it's limited, and so, since both our code review agent stuff and then our code assistance codecs as a code assistant platform are all limited, you know, we're more conscious of what model we use for what task, and we don't really see much difference, because the way we spec things out right can be accomplished like to the point where you can't tell a difference that if you use a high, like a 5.5 deep thinking model versus the 5.4 mini model,
+
+Brian Wright  34:01  
+yeah, you get the
+
+Van  34:02  
+same output,
+
+Brian Wright  34:04  
+yeah. Okay,
+
+Van  34:05  
+yeah. So it depends on the task that we're using, and most of our coding tasks, like, usually we, we spec out exactly what we need, focusing on that, and so it's almost leaves, it leaves less room for reasoning, that's how most of us do it, but some of our users don't. They leave more for reasoning, right? And
+
+Brian Wright  34:30  
+okay,
+
+Van  34:31  
+you know, it just is how efficiently you use tokens into that point.
+
+Brian Wright  34:36  
+Well, this is the thing I can show you guys real quick in the code space here, so this is, I mean, I didn't plan it for, like, a demo of this, but I can, I can walk you through the structure, like this is the just basic YAML, and what I have in here is just a bunch of foundation models, and so what I can do is I can, I can copy the whole repo, like make an instance for you guys, and then just, you know, API access just the models that you use the most, which sounds like it's probably the mini or the four oh. I can go up to five, and what it does is it just, it has these are a series of like coding challenges, and it just, it just documents the quality of the responses for these particular prompts through, well, this is coding, this is general. And then there's reasoning, which has be like mathematical constructs, you know? You know, train leaves at this time, and another train leaves at this time, and then it just says an LLM judge that scores it. And then it's through a series of metrics, like those are scored based off accuracy and speed and reliability, and then it just store the output in a pretty straightforward SQL table, and then I can query those results like over time, so if I run this like every day, like it might be, you know, and this is like the click structure that has all the functions in it, it'll just output, you know, real basic summary tables, and this is in Markdown. I probably should have structured this a little bit better, but you can kind of query it. You can see here, I can just run, you know, run it with GPO, you know, do the coding instance, and this is no LM judge, but like I usually run it with the judge, and then I can just pull a report and it'll show the score trend and the summary stats and degradation alerts for all those various models, and that uses just us to just like a z score distribution to see if there's like major shifts as everything scored between zero and 10, so if you want just like for a little backstrap like infrastructure setup, I could copy it over. You let me know what models you're moving, you're using, and then I can just run it maybe a couple times a week or multiple times a week, and let you guys know if there's any changes. I can send you the whole thing, and you could do it yourself. Whatever you
+
+Van  37:00  
+is, this like a may have missed the beginning of this conversation, but so this is like a test harness for models, some against, yeah, marks,
+
+Brian Wright  37:12  
+yeah. So, what we know, like, I was reading, you know, how it is, like, I'm, you're always some stuff just comes across your desk, but I was reading a bunch of stuff about like concerns relative to the race of the various companies, and like them constantly producing new models in order to be able to capture market share, and what they do when they do that, give those limited resources, they have a tendency to under support existing models, and what we know is that existing models degrade over time, so it's like the net, the nature of like not having relevant training data, so they degrade, so the quality of them sometimes goes up and down, so they also do different, like, like cycles of maintenance, so for a period, like one of these articles, for a period of like three or four months, like GPT four oh was like doing really bad on math as compared to 3.5 and then after three months suddenly it was better again, but if you're using it for something that you know might be map intensive, like suddenly a degradation of, like it was like 40% as it relates to the quality of the model responses, might be like a real, a real problem. How
+
+Van  38:13  
+does that degradation happen if the models aren't, you know, I mean, they don't,
+
+Speaker 1  38:20  
+yeah, they don't have
+
+Van  38:20  
+any delta to them, right, because, like, they're all trained up to a certain spot, but then, how did it agree after that, right? Because every time I use a model, I'm using a fresh version of that model, it's trained off the base training, right?
+
+Brian Wright  38:35  
+Yeah, that's right, but what the.. there's two things, so one, the nature of the quarries that you're asking might be dependent on new information that that model simply never had exposure to, so no matter what the distribution of the information has tails. So, in theory, over time, what happens is, is that the tails get bigger, you know, is that the nature of how people are using those has a tendency to move outward because you know they're asking questions you know about the new president or whatever, and they wasn't trained on that, you know, so it's just like now they all said,
+
+Speaker 1  39:12  
+okay, yeah, they get out,
+
+Brian Wright  39:13  
+and then there's a natural, there's some, there's just some theory about, we don't, you don't totally know, but there's just some theory associated with like natural atrophy that might happen relative to just the nature of how these are getting used and how they're, how they're other being used, and then they create agent structures around the model, so now when you query in, you'll say, hey, it's downloading, like, you know, the skill for Microsoft Word, or is downloading the skill for, like, internet searching, or API, so there's always an agent interface. So the agent interface creates another layer of variability associated with how the API is actually querying the original launch language model. So it's not, it's not a perfect one to one, which also can create some discontinuity, but it might not be that big of a problem. I don't know, like, it, you know, there's a lot of papers out there that track, like, some of the degradation associated with it. And then there's always, like, basic drift. I'm just wondering, I'm just rambling now, but if you know you guys are heavily using a few of these models, and you want me to just track them on basic tasks or anything, and if I happen to see red flags, I'll just let you know, like you know, just be like, "Hey, you know, looks like for some, for whatever reason, you know, coding tasks on version like 5.0 mini just tanked over the last month, and I'm just asking at the same prompts, it's performing worse, so it might be something you want to be aware of.
+
+Van  40:44  
+I would love something like this for visual models, visual LMS, for specifically with like extracting form data, and then another one for medical understanding, medical questions.
+
+Brian Wright  41:00  
+Okay, visual data say more like not generating, generating images,
+
+Van  41:08  
+not generating, but interpreting,
+
+Brian Wright  41:10  
+interpreting, interpreting. Yeah,
+
+Van  41:14  
+those two, those like having that kind of harness test was, I think, would be good, because if we end up using LLMs in the process, right, we want to make sure that we're constantly using the best one for whatever it's doing. Okay, we talked a little bit about zero day for a lot about zero forms last time.
+
+Speaker 1  41:32  
+Yeah, and
+
+Van  41:33  
+I'm trying to understand how the client is using Palantir and Open AI, because their stories are kind of like opening AI in two hours. We gave them a form, and they were able to extract all the, you know, form values out of the
+
+Speaker 1  41:48  
+form.
+
+Van  41:49  
+Like, okay, what does that mean? You know, I mean, like, like form values that are correctly mapped, right? Or, you know, like, how accurate was it? Like, to hallucinate, you know, like, what was it? Try, what was it? What was it doing, really? What was it looking for? What did you ask it? And so I better understand what they did with that. And then Palantir also had some models, because I want to understand, right? If where are the gaps? Right, we've also messed around a little bit with an LM approach. Talked about it, right? I said we would feed it not an image and rely on the VLM to translate that image into like vectors or whatever math it does to understand an image. Instead, we ran it through OCR first, and then performed, you know, so be interesting to see our process versus their process, and in fact, we're not even using an LM to look at to extract, which we, which is what we did, we had a test doing it, but we never, right now, our process that's in flight is we run the text OCR and then we run a YOLO model to recognize sections and we use projection, right, which is a totally different approach than we use OCR with coordinates, and then we try to somehow use that with an LM, and maybe a visual LM works better not using text track, right? Maybe it works better when it extracts forms, because it's looking at the raw vectorized, you know, image, right? Yeah,
+
+Brian Wright  43:30  
+yeah, you can make better
+
+Van  43:32  
+interpretations off of that than you can off of, you know, adjacent object, which has a whole bunch of coordinates and words, right?
+
+Brian Wright  43:38  
+Yeah,
+
+Van  43:40  
+so you know I'm going to better understand their process, and I think at that point I'll be able to continue the zero day kind of conversation later on. Yeah, because you know they're obviously trying, you know, to see how far they can get with LMS, and I want to see where that gap is between LMS and traditional OCR technology, and then you know, see possibly a hybrid approach that maybe reads better, or maybe a hybrid approach isn't the approach that's best for this, you know,
+
+Brian Wright  44:17  
+yeah, but that's no matter, okay.
+
+Van  44:22  
+Sorry, go ahead.
+
+Brian Wright  44:23  
+No, it's gonna say no matter what they do, there's going to require some, like, some infrastructure. It just, it just can't be like an open large language model that has that high of a consistency and a hit rate. I mean, it must be fine-tuning it, or maybe, maybe Palantir's platform does all that work behind the hood. It's very possible, you know, that they say we just fed it, but it's actually a really sophisticated process, and they're just all of it's obfuscated away. Like, I don't know, but anyway, to your point, it's hard to know exactly what they're
+
+Van  45:02  
+opening. They were like, "Open, I did. In two hours, they got four values out of it. I'm like, "Okay, you know that could very well be like just texts. They could have just gotten the text, and you just recognize some of the text in it. Yeah, which is a big difference, you know. So, yeah, they could get excited about that, because they could say, "Oh, I recognize all the text that pulled out, they must have all the values, right? Yeah,
+
+Brian Wright  45:25  
+that's right, you know. And then, what's that going to cost you every time you want to run it, you know? Yeah,
+
+Van  45:29  
+and then you're like, "Okay, well, they have all these values, how do they know that this value means they did the easy
+
+Jonathan Seale  45:35  
+part? Yeah, they
+
+Brian Wright  45:37  
+did the easy part,
+
+Van  45:38  
+and that's what I really think happened in the two hours they did it, but like to them they're like, oh, but it's there, so like, you know, they're like, yeah,
+
+Brian Wright  45:52  
+well, I can, I hadn't thought about, I hadn't thought about using this method on images, so I can, I can think about that, and then, but I could certainly create a version of it that just centers on medical props, like medical questions, things like that. These would all be zero shot, you know, no fine tuning, anything like that, see the quality, the responses got back in like a medical context, but that would be through, that would be through text,
+
+Van  46:21  
+yeah,
+
+Brian Wright  46:22  
+not necessarily through images. I don't know if that would be, it might be valuable to you. I'm not sure. I don't know, maybe some of these foundation models have a better understanding of, like, medical, you know, syntax than others. I'd be interesting.
+
+Van  46:34  
+The two that you're talking about would be really cool, right? Would be like, you know, definitely like the visual LLMs, right, for just recognition, right? Yeah, and then the other one, the medical one, I'm thinking, like, you know, you know, drifting, you know, medical concepts change all the time, right, and it really fits what you're saying, I just don't, you know, and those would be really valuable for a lot of the work and industry that we're in right now. I think we could reuse that a lot of times. There's like a discussion last week about where they're like trying to get stuff into a discrete, you know, medical format, OMOP format, and the people who are doing it, like the nurses don't want to go there and answer every discreet question that you generate based off this thing, you know, they're used to just writing narratives, you know, they're used to just writing, you know, like by word of mouth, like doing our extreme of conscious, you know, and so, like, you know, having a model that recognizes those things and can translate those concepts right really well through a narrative, you know, even if it's OMOP or HL Sunfire, or all the formats, or code them, or anything like that, like, you know, super reasonable in various types of scenarios. Okay,
+
+Brian Wright  48:01  
+yeah, I'll definitely, I'll focus on that one first, I think, because that might be the easiest version. I could copy over what I have, and then just, you know, reformat all of the all of the quality measures to be associated with some type of medical domain, like, I can figure that out, like, whether that, and maybe I can upload a bunch of images and have it describe the images, see if that could be, maybe I could do that, let me tool around with it, I'll get that, I'll get that going, yeah,
+
+Van  48:34  
+and travel is the one, one of our domains, so trouble is, is kind of a smaller, as a subset domain, right, which one, what
+
+Brian Wright  48:42  
+one? What is
+
+Van  48:43  
+it? Trauma,
+
+Jonathan Seale  48:45  
+trauma, trauma, trauma. Yeah, trauma
+
+Van  48:48  
+has its own language and everything, like, you know, or like you can concentrate on even smaller ones, like, you know, like a drug, drug, are they called, like, interventions or whatever procedures, things like that, you know,
+
+Brian Wright  49:05  
+well, I can certainly have a whole suite of, like, right now, like the way that the way the tests are being designed are across just basic logic, coding, and then more deep reasoning, but if we had a medical application of this, I could have one that was associated with, like, maybe I could make images work. I don't know how to figure that out, but it could certainly be trauma, and then drug interventions, and then maybe just like basic diagnostic, you know, criteria, stuff like that, to where you know I'm asking it a question, you know, and then it's coming back. We're just measuring. We already know what the answer is. We're just measuring the quality of that answer, so it would be the same thing I have here, except it'd just be all the all of the logic exams would be associated with like medical medical areas, which might be fun. Yeah, does that make sense?
+
+Speaker 1  50:01  
+Yeah. Okay.
+
+Van  50:02  
+Yes,
+
+Jonathan Seale  50:02  
+I got.. I have a final topic. If we could do it real quick here. Craig and Van, and I were talking earlier this week about how use of AI in our work is going to affect our pricing strategy, so you know we're thinking about things like, well, one, we're probably more efficient, so we could stay lower our price on things, could be things, though, that you know some LCATs are more efficient than others, like maybe our reporting is easier, so maybe we don't need as much reporting time, but you know maybe we still need just as much QA QC, or you know, whatever, just kind of like the and so anyway, we just, we need to start kind of thinking about the impact, because we also don't want to, like, say so under bid that we maybe become non-credible, right? So we think we can do that at 75% of the cost that you used to do it, and the government will say, well, you know, we don't think that that's accurate, so we actually hurt ourselves by under bidding it so much, or hurt ourselves by under bidding it so much that ends up we're not as efficient as we thought we were, you know. Anyway, but what we need to start doing is collecting some information or some data on what kinds of efficiency gains are we having, and what's the market seeing? Because I was telling Craig that I just don't think we have the statistical volume yet to be able to really understand at ATA how efficient we're being now, you know, we've got some anecdotes that's like, okay, on this one project, this one task we were super efficient at it, and but for a lot of our projects it's even hard to measure because we're, we're like, you know, we're hourly, we're like level of effort not by deliverable, right, so it's like everyone's still, you know, anyways, is very hard to measure these things. So, anyway, I guess an ask we could have is just kind of looking out there on what kind of research is being done in the marketplace, kind of in the software development, you know, community at large about where the efficiency gains are happening, and how much you know, I think we're trying to get it to like a number, so it's like, okay, it looks like people can complete work, you know, 10% faster, 20% faster, you know, with if the work is these kinds of activities, and maybe even how long it takes to get those efficiency gains, because like if it's a one year contract, maybe you don't get those gains until the second year, in which case it doesn't matter, you know, so that'd be kind of one thing, like what are some of those metrics that people have measured so far, and then the other would be, what kinds of metrics should we be trying to gather about ourselves that would help us answer, how are we doing against other companies, or help us again, like kind of tune our own pricing to our own performance and our own use of AI.
+
+Brian Wright  53:48  
+Yeah, I think that's good. I, you know, it's a complicated space because there there's a non-trivial amount of dialog associated with it, actually, is not having much of an efficiency gain. It's causing more work, and sometimes that work is not as high quality, and as a consequence, unpacking bad work takes more time than taking your time to do good work. That's all anecdotal, you know. So, I, you know, I haven't searched this, like, you know, you know, deliberately, so I can do that. I do think, like, the measure with which things get delivered, in the pace that they get delivered is probably going to be the metric that you can use to allocate that percentage, like how quickly if this was a very similar project, like in 2023 like how fast in time of delivery as compared to what we would do now, and then look at it rationally, because it could be that that same project you get delivered faster, but the requirements being given to you are not the same, because there's an expectation of like more, and if that's the case, the delivery of the is more, but the cost might be the same. So, yeah, I mean,
+
+Jonathan Seale  54:53  
+I've, so I mean, I've seen things like line of code created, lines of code deleted, I've seen like epics closed, you know, like, number of kind of features, you know, delivered, and there's lots of different ways that you think of some better than others, as far as, like, and I like that's an interesting thing you say, though, of like, oh, but maybe this has changed how we define an epic or a user story or a feature. Now you know, maybe you try to pack more into a feature because you figure you can get it done faster. Now you know it's level, classically been a hard thing. It's always been a hard thing to measure. It's always
+
+Brian Wright  55:35  
+been hard, but I, I, I feel like that seems to be a lot of people's lived experiences, is that there is an expectation for that you should be giving more, you know, for less, you know, for the same amount, you know. I feel like that's a lot of, lot of assumptions that way, you know. So it's interesting to think about, like, how that translates into into cost. You're right, because it makes it very hard to hard to measure, yeah,
+
+Jonathan Seale  56:04  
+yeah. I think you know, saying to Craig, I think we just like dip our toe a little bit and see if have we over corrected, have we under corrected, like what's the competition doing? You know, because that, because it's a little bit, it's kind of game theory stuff, right? You're trying to predict, like, what - what your competition is going to do, what the expectation is from the government, like it's very, very tricky.
+
+Brian Wright  56:30  
+Yeah, and there will be firms that just drop the bottom out to 100% like they'll do that just to be able to get, like, a footprint in and hope that the reputation sticks, like that'll happen. I would assume in the world of everything is possible, I imagine that someone will try and do that. There's just one guy in a basement, I can do it all. Yeah, okay. I'm sure there's been some stuff out there that wouldn't be surprised to be able to find a little bit of quantifiable, like research on that, even if it's more like an article-based or something, or like survey people talking to people, but let me take a look and see what I can find. I'll get back to
+
+Jonathan Seale  57:06  
+you. All
+
+Brian Wright  57:07  
+right, cool. All right, so I got I got the architecture thing. I'll work on that relative to just, you know, how do we embed agents into teams? You know, maybe translating that into a knowledge map. I got this last ask here just to search around and see if there's some like normative approach to like cost reduction for software development with large language models, and then and then Van, I'm also going to take a look and see if I can convert that large language model drift analysis quality tool to be like a to be used in a medical context, so good,
+
+Van  57:41  
+yep. And then I'll reconnect with you once I have a better understanding of the Open AI form extraction approach.
+
+Brian Wright  57:49  
+Yeah, cool. Sounds good. All right, like I'll be busy for the next two weeks. Yeah,
+
+Speaker 1  57:58  
+yeah. All right, guys,
+
+Brian Wright  58:00  
+go by. Have a good weekend later. Bye.
+
+Transcribed by https://otter.ai

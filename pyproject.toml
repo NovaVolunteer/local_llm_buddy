@@ -24,7 +24,7 @@ dependencies = [
     "langchain-pinecone>=0.2,<0.3",
     "langchain-text-splitters>=0.3,<0.4",
     # Vector store
-    "pinecone>=5,<6",
+    "pinecone>=6,<8",
     # LLM / embeddings server
     "ollama>=0.3,<0.4",
     # UI

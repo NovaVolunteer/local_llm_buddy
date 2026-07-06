@@ -1,0 +1,421 @@
+Speaker 1  2:54  
+Bam bam. Hello, hey.
+
+Speaker 2  3:01  
+How's it going?
+
+Speaker 1  3:01  
+Hey, not bad, not bad. I gotta give permissions.
+
+Speaker 2  3:13  
+I can see the top of your head. Sure, I think something popped up for Craig, so I don't know if it's gonna join today. Don't quite know Jonathan's schedule either. Me, ping him.
+
+Speaker 1  3:34  
+That sounds good. I got.. I am taking.. I got Otter running in the background, just FYI, taking some notes. Somebody's here.
+
+Speaker 2  3:48  
+That might be him.
+
+Speaker 1  3:50  
+That is Jonathan. Enter.
+
+Speaker 2  3:55  
+Hey, so So did Scott ever connect with you, Jonathan? Okay, talking about some kind of incubator ideas he had. I told him that you were the person to contact about that, so So one of the topics we had an interesting conversation today, today this week about zero day form extraction, and the way we were approaching the problem before was see a form you don't know anything about it, you don't know what information on it means anything, and you don't even know things you're pulling on the form, or just parts of the form, or if they're real like values, right? So we were all concentrating on kind of, okay, look for key value pairs and things, and then organize them in a way that you know can be put into a standardized medical structure, so it can be reviewed, which is they use the Omop standard, and ones you're unsure of, kind of arrange them in a way that they can be reviewed, right, when you perform an extraction, we were running a VLM against it, and then running it through Textract, and then combining the VLM output and Textract together, and having it try its best to pull out key-value pairs.
+
+Speaker 1  5:35  
+Yeah,
+
+Speaker 2  5:37  
+then we had a conversation with Dave, who's kind of closer to what they might want to do as he works on the Omop conversion, the medical convert medical standard conversion of the data, and he was saying, well, you know, whether it's a form or just a jotted note on a pad or whatever, if it's not a standard form, therefore we don't know what's on it, and we don't, and usually when we know it's on it, we know that this maps to an OMOP concept, right? Instead, pull the text you can out of it and see if you can find OMOP concepts meta medical concepts in there, like measurements for like blood pressure, or you know, information that is demographic information.
+
+Speaker 1  6:32  
+Okay, if
+
+Speaker 2  6:33  
+you can't extract it, you can't extract it, but just look for those concepts, so there's no pressure to hallucinate and pull out stuff that's not there, right?
+
+Speaker 1  6:43  
+Yeah,
+
+Speaker 2  6:44  
+but if it recognizes something that's a concept, Mom, up concept, like say an injury, like a gunshot wound to the arm, right, or medical prescription medication, right, it can extract this set of OMOP concepts that it kind of found, and that would be valuable for them when they have a zero day form, and not even just a zero day form, but like even just, you know, a random note, right? They can just write a medical note real quick, jot it real quick, and it'll try to pull out Omop medical concepts out of it,
+
+Speaker 1  7:20  
+okay?
+
+Speaker 2  7:22  
+And so I was thinking, you know, that if you think of it that way, and you're, you're basically, you know, VLM or anything that OCR is a text, and then you have a model that is kind of like looks for that's trained on the 150 because this is a set amount of them up concepts, right? It's like 300 something, 300 concepts that to look for, or whatever a model could be trained to look for those concepts in written text. So I thought that was interesting, because like that changes the paradigm that we were thinking of what they want out of a zero day form, right?
+
+Speaker 1  8:04  
+Yeah,
+
+Speaker 2  8:04  
+if they want out of zero day form, which is not really kind of like zero day anything, just any type of text, right?
+
+Speaker 1  8:10  
+Yeah,
+
+Speaker 2  8:10  
+image of any type of text, and all they want to do is just to grab any kind of multiple medical concepts out of it that can recognize, and that's a different problem, right, than trying to extract any kind of key value pairs.
+
+Speaker 1  8:24  
+Totally, yeah, yeah. I mean, that the feature space is much smaller there, you know. So, like, in here it seems like you build something that was more testable relative to like what you would expect, like those key value pairs to come out of like the zero day form. They could even brainstorm and be like these, the ones that we would expect, and then you'll based off, like, because you know, I guess, like, what was being put in there. Then you could, you could certainly test it based off those assumptions about how good is identifying those pairs, and then everything else, you know, that's your like noise space, right? That you could maybe reuse the text extract, or like, you know, do some type of fine tuning, whatever you need, but you know, if it's designed to give you like a certain level of threshold, and then go to the more sophistication, that's always probably a good, a good approach,
+
+Speaker 2  9:12  
+it would be easier for them, I think, too, to look at things from a confidence level, right, because let's say one of the OMOP concepts is a blood pressure measurement right, and it recognizes that there was some text here that looks like it's a measurement of blood pressure, you know, it can bring it up, it can highlight where it found it, and it can give confidence of that OMOP concept, and then you know you have them ranked, and it can, it'd be easy for them to kind of like, because anything that's in there that actually becomes an OMOP concept is valid data, and therefore there's no need for validation that happens afterwards, because, like, our current process, when we have known data, known form in places where these things are,
+
+Speaker 1  10:00  
+yeah, right,
+
+Speaker 2  10:01  
+right to the data, we know that this is means this concept. We have to validate that the value, you know, provided is a real blood pressure, because you know if it's in this location it should be a blood pressure, right? Very different question than being like, have I found a blood pressure anywhere in this form,
+
+Speaker 1  10:21  
+totally,
+
+Speaker 2  10:22  
+and then telling you, hey, this looks like a blood pressure measurement, and this is my confidence that it
+
+Speaker 3  10:26  
+is. Do you, Van, do you think this is where, like, would we just use, say, Comprehend Medical here? We still do the OCR to extract, extract the text, but you wouldn't do any field mapping, really. It's just like, just straight NLP to give you whatever the like ontological meaning is of all the text that's pulled out,
+
+Speaker 2  10:48  
+yeah, but this, but one train to grab only OMOP concepts, right? Not necessarily medical codes, right, but like, you know, I mean, it's like this is a further step, I guess. Yeah,
+
+Speaker 3  11:00  
+there's probably some filtering and structuring to be done.
+
+Speaker 2  11:03  
+Yeah,
+
+Speaker 3  11:04  
+but
+
+Speaker 1  11:07  
+what's an OMA?
+
+Speaker 3  11:07  
+What's
+
+Speaker 1  11:08  
+an OMA process? What is it that's like the standard, like diagnostic processes? What is that?
+
+Speaker 2  11:13  
+It's like a medical data structure standard.
+
+Speaker 1  11:17  
+Okay, yeah, that makes sense. Okay,
+
+Speaker 2  11:19  
+so it can encompass a lot of things beyond right now. I use NLP to grab what medications, and Jonathan, you know the most, right?
+
+Speaker 3  11:30  
+Yeah, like medications, tests, procedures, conditions, you know, medical conditions, history, like patient history, all things like that.
+
+Speaker 1  11:44  
+Okay, that makes sense. And apparently,
+
+Speaker 3  11:46  
+Omop itself is pretty.. I don't really know much about it, but as it's been described, it's pretty flexible, so that kind of.. there's a couple different ways, probably, to represent different sorts of new meanings into the OMOP standard, you know, like you might have a table of like procedures or something, and there's just like a couple common, you know, columns that are always present for that,
+
+Speaker 1  12:18  
+that makes sense. Yeah, and that would actually be really helpful. I mean, if you had both, that you know, I don't know, like in the grand scheme of thing, you think about it as like an entire project instead of like an individual like ontology that you're developing for every one of the forms, like something you could layer on top, potentially would be like, you know, the commonality associated with like the, you know, the placement of those Omop fields, like where they typically show up, like in a form, like if you had enough density, that might help you too, with like the zero day form, because you'd have like some general understanding, like they probably, you know, like you're, you know, the especially the initial diagnostic stuff, you know, name, date, whatever, birthday, I mean, that's all going to be like, you know, you know, upper 10% but it might be like some of those other like standardized measures, maybe they show up like on a particular form in an area where it could help you identify, that's
+
+Speaker 3  13:11  
+yeah, that's interesting, because like when you run Comprehend Medical, it gives you like a confidence that it thinks that every term it extracted corresponds to, you know, some medical standard, but then you could imagine kind of combining that confidence score with a learned confidence of the system based off of its position, right, or other factors too, you know, like what kind of form it is. It's like, oh, this, you know, this form shouldn't have tests on it, because it's not about that, because there's other things like you could do to like influence that kind of overall confidence score. That's interesting. It
+
+Speaker 1  13:49  
+would just be like additional feature space that you could engineer based off like your distribution experience with the forms, you know.
+
+Speaker 3  13:56  
+You
+
+Speaker 1  13:56  
+might even be able to calibrate it based off that the tool you're talking about, see how well it works. Yeah,
+
+Speaker 2  14:01  
+so how we did it with our data that did for the proof of concept, we imagine a system where you have a form you don't know anything about it, right? It could literally be a napkin somebody wrote some stuff on, right? So the word, the term form at this point is not, we should cause some like medical piece of information, right? Could be a medical memo,
+
+Speaker 1  14:28  
+alright,
+
+Speaker 2  14:29  
+and you know, looking for Omop concepts on that to help that along. We were like, well, the way he was extracting it, you know, he was supplying some prompts to the foundational model. Right, Mike. Well, what if in the workflow, right, when you upload it, you provided a description, and that can kind of give extra prompt information from the model to better extract out OMOP concepts. So, like you said, Jonathan, you said, like, you know, this should not, can you know this, this thing should contain stuff about, you know, a person's injury, right, or this is somebody's checkup, or whatever, you know, that could really help on confidence levels, and things like that, as well, I'm just kind of imagining this kind of, like, you know, flow where you know it's not going to be ever as accurate as when you know everything that should be there, your piece of information, right?
+
+Speaker 3  15:31  
+Sure, but
+
+Speaker 2  15:32  
+it's super valuable for stuff which they, they have this whole slew of information which isn't in that format, or they don't even know it's going to be they're using old versions of forms, sometimes they just write it on a piece of notebook paper, you know, and yeah, this is
+
+Speaker 3  15:54  
+actually seems really so we just got, we're going to be responding to this RFI from from D Fast, who's like financial stuff for the, you know, DOD, sure, and they, they describe their, like the system as, or their requirement as less like highly structured extraction, like we're doing for JTS and much more, just search ability, and like some metadata extraction, which I imagine might be something like identify some cage codes that that are in there, or like, you know, maybe just kind of some standard kind of like identification, you know, sorts of things. Anyway, this kind of reminds me of that, because you're like looking for specific bits of information rather than trying to structure the whole thing to like a, like a known standard, you know.
+
+Speaker 1  16:52  
+Yeah, DVS might be interesting too, because, like, a lot of that, some, some, I mean, a lot of it's obviously protected, but some of it is is public information through, like, the auditing process, and what they have to document, and not, I don't know, that might be as compared to, like, medical data, which is always going to be protected for personal security stuff, like, you might be able to find a lot of DFAS forms, like in the open space, like, do a little bit of pre-training, something like that, test your systems to see how they work. That's just a, that's just a guess. I mean, it could be totally wrong, might also be like fairly secure, but might be worth a might be worth a search or two, especially if they're just looking to identify some like commonality of the fields. I mean, even understanding like the few forms they have publicly available might be, you know, inform form a system
+
+Speaker 3  17:48  
+interested to know the difference in performance between something like Comprehend Medical for this concept extraction and a large language model, you know. because I don't know, I don't know what Comprehend Medical is doing in the background, but I'm assuming it's doing some kind of, you know, fuzzy matching, and then probably some like grammatical kind of labeling, because it also understands, like, you know, this is a medical condition, but it doesn't apply to the patient, it applies to their family, like it's a history rather than their current, you know, condition. So, there's there is some like language understanding happening there, you know, I'd be interested to know, like, if you gave the two the same bit of text, how they would measure up to each other.
+
+Speaker 1  18:52  
+Well, you, yeah, you could certainly design a, you could probably design that. I could probably should be something pretty quick. So, like, I have a little tool that I use to track it's just like a click app structure, but it like use it. I have like seven of the large language models, and I just send it like reasoning and general questions, and then sometimes like some math prompts. I'm just checking the quality of the responses over time to see if there's atrophying associated with certain, like base models,
+
+Speaker 3  19:23  
+it
+
+Speaker 1  19:23  
+does automatic scoring. It's all pretty, it's all pretty. Anyway, like I said, an example, I mean, so that I mean, you could use an architecture that would be very similar to that. So, what you would do is select the models that you choose. I would do a variety, like just, you know, yam all the different models you want to use, and then you just create a pretty simple, you know, kind of maybe three modular approach, where you have one, whereas the modules are just using your kind of proprietary system. First name, I just can't even, can't seem to retain in my brain the thing you just said, yeah, copyright medical, and then the other one hits the hits large language models, and the third one is just an evaluator. Compare the two. Yeah, but I would think I would think Comprehend Medical would probably do, probably do bad art, but I mean it doesn't, doesn't mean that it, you know, couldn't find, you couldn't fine tune something like over time in order to be able to cancel,
+
+Speaker 3  20:23  
+maybe. I mean, you know, it's.. I don't know how old the technology is exactly, but it's definitely pre large language model, you know. So, and I've noticed that it.. it falters pretty badly on typos, especially in medication names, like if you type Tylenol and do it with an A instead of an O, it misses it, you know. And a large language model might be better at that.
+
+Speaker 1  20:49  
+Yeah, that's pretty bad. Yeah, yeah. Huh, interesting. Yeah, it would certainly be more robust, I think, just like given the distribution of the of the language it has access to, you know, so like most type of topographical errors, like the, I guess, like the big benefit is that just the history of usage, right? I assume they have a way where they're capturing all the usage and informing the system as it moves forward, maybe not, I don't know, I mean, like you said, if it predates that, maybe it's just like a little bit more static than that, but that would be that would you have to have a, you know, time-based, like, how much can I improve the large language model from, like, zero shot over time? The more I use it, and then compare that to comprehensive medical, that might catch up, it might catch up pretty quickly,
+
+Speaker 3  21:37  
+right?
+
+Speaker 1  21:38  
+And then you could use that checking mechanism just to balance the the responses and see how well it does against like basic prompts, things like that. Yeah,
+
+Speaker 3  21:48  
+that's that's interesting, because like that the language model, you can, you can tune it a little bit comprehend medically, you can't, you know, it's, you know, that model is already trained, you just send it some texts, and it gives you back the same answer every time, you know.
+
+Speaker 1  22:04  
+Well, yeah, I mean, especially if you don't, if it's like fairly, you know, you might not even need that. You could just use like llama three, like locally, you know, if you're hyper tuning it for one specific use case, like the big, the big generative, like base, you know, foundation models are good for like hyper dynamic environments, but you can make a pretty hard argument. You get pretty far for something like an 8 billion parameter model that you can run locally. It won't even cost you the tokens, you know. You could just tune it to that particular use case. You have a 16 gig laptop with a GPU on it. You just make that your, you know, comprehensive medical beater, you could just tune it, and that's like its sole, you know, sole purpose, and that way it won't cost you all of the, you know, all of the fine tuning over time, and if it's just doing that one, like, has one particular use case, I mean, if the, if the forms start to get, you know, radically different, then maybe that, maybe, maybe you need something a little bit more dynamic, but for like just viability, that's how I would do it, and use a llama, and just like type in the o l l l l l l l3 and just you could tune it right there locally. Do you guys know o l l l l l l lma? Do you know that there's a Python package that allows you to select the open free models, yeah, it's cool. Worked really well.
+
+Speaker 2  23:24  
+I think it's one of the things in Bedrock. I could be wrong. I think I was, I was enabling a few models of Bedrock to do some of this testing.
+
+Speaker 1  23:33  
+Yeah, that was pretty good. Yeah, that
+
+Speaker 2  23:40  
+was the big topic I had?
+
+Speaker 3  23:43  
+Okay,
+
+Speaker 2  23:44  
+anything
+
+Speaker 1  23:46  
+I
+
+Speaker 3  23:50  
+go ahead, Brian.
+
+Speaker 1  23:51  
+I was gonna say, I did, I did a little bit of work on the on the knowledge retention, you know, in between. I think Van, I think we had talked about that last time, about, is that right? Like long form knowledge retention, as it relates to like project structures, things like that.
+
+Speaker 3  24:06  
+That's what that's what I was about to bring up. So, okay,
+
+Speaker 1  24:08  
+yeah, all right. Well, there's several versions, though. Well, they came out just the beginning of this year for Open AI, called, I think it's called Dreamer, and so it, that's a, that's a long form memory unit that's supposed to be designed for kind of this, like this specific purpose, like it captures all sorts of an archive associated with an individual project, conversations, even even emails, if you set up, like the zap your feet, or whatever you want to do, and it's designed to have a resident memory associated with how it acquires and retains that information, to the point where what it'll do is it'll actually, if you have a meeting and something happened in the current in the past, it goes back into the document residue and splits, starts to shift the tenses based off the when the meeting occurred, when things got uploaded, it'll do that automatically and maintain it. Both, both Claude and Gemini have, like, a version of that. The Claude one is kind of default. If you have multiple projects, it'll, it'll cut across and have, like, a retention memory, but you can prompt it in order to be able to, like, make a better kind of essentially file structure associated with the data and the information that it's that it's pulling from, so I I'm using that for this project with us. So I have Otter running in the background. I don't know if I mentioned that or not. So it's transcribing this, and so what I'll do is capture the transcribe, and then I just go into the I go into the clock workforce project until to pull the transcription from the Otter tool, and then it'll automatically document the action items, like when it happened, what were summary topics, and puts that in a meeting transcribe folder. Also, have like notes that, if we compare notes or share papers back and forth, I have an archive for that, so it's essentially vectorizing that space. So I created a little just architecture, I, and I just use Claude, because that's the one that I've been using, but it seems like, you know, between Claude and Open AI, like the two memory retention services there are pretty good, with Open AI's being a lot more customizable about how you want to use it, how it wants to be stored, things like that, so it requires like I don't know what's sweet of.. if I don't know what I don't remember what suite you guys are, your Microsoft Shop or your Microsoft..
+
+Speaker 3  26:33  
+yep.
+
+Speaker 1  26:34  
+Well, then I think OpenA is probably the best choice, just because it allows you to have some like enterprise information there, so I can, I can let me pull that up with the ideas that, like, if you have a shared space, then everybody that has access to that team to that space can then you know kind of query natural language just like we're doing just like you know when did we talk about this thing or what did we talk about in the last six months or can you pull this information for me and that it's essentially a customized agent that's running on top of that space that has a has a has kind of an orientation towards long term, long term memory retention, because some what will typically happen, and I think this is like a fair analogy, is that, and just stay with me on this, but like the human experience associated with memory is we experience something, and then it, it shapes our conscious space about about what we just experienced, like we would, we would, it would change the nature with how we approach future experiences that are very, that are similar, not to say that we're trying to compare this to, like, human experience and computational experience, but the problem with large language models, and sometimes we conflate this idea, is that it's not often the case that, based off their previous experience, that that actually reshapes what they know in the current moment, they have to go back to their repository, identify information, and then pull it forward, so what, what I think we are evolving to, maybe, is that if it starts to learn patterns associated with groups or something like that, I can better anticipate like what you know might be best for that particular group, things like that, but that that functionality doesn't really exist, if that makes sense, like in a very optimized way, so the what, what it seems to be the best case, and this is like from, you know, these are these these long, these long form like memory agents are still fairly new, I guess. Number two, and like the tech cycle, because they're launching new versions of them in the new year, but the one previous version of like the Open AI one, as an example, like on recall, was doing like 45% accuracy or something, was like totally shitty, but the new one that they published apparently goes over 80% So, like, if you accurately query, like, what happened in January in our conversation, it'll bring that information back in a much more like sophisticated way. So, let me show there's an article here that kind of documents this. this, where my tabs are now sweet bored Crag enough to rain chopped off. so this is a pretty useful article, I mean, it describes the three different approaches, the Google one seems to be not really an option, but it describes the dreaming version for Open AI, and then kind of the baseline for Claude, so I still think it requires like some system system construction, but you know if you're using this, that system might be fairly minimal. It seems more like it's a an organizational norm, like you have to get people used to using this type of structure, but if you have a shared space, for instance, like when I'm done with this transcript, like it's automatically going to get fed into like the file structure I built for this cloud project, and then I just pull that project back up, and I can query and ask it what we, what we discussed during this meeting, and then I uploaded all the notes I've ever taken, and it created a distribution file based off dates of when those notes happen and added to the context associated with how it talks about this ATA project. Yeah, so
+
+Speaker 3  30:52  
+yeah, I'm very interested in this. How you, how you should store knowledge that you want to be able to reuse, and then the bet you know, and, and retrieval, you know, methods. I was doing some design design research around that kind of project theory, you know, thing that we were talking last week or two weeks ago, and you know, maintaining that within a team, and I was just talking to, because I'm trying to find some funding for it, trying to find someone like DARPA that would be interested in, in funding the development of some kind of product out of, you know that idea, and, and so something, and then we had some discussion about it at one of our like internal brown bags, and and it had me thinking about kind of, well, the discussion kind of turned to like what's the best way to like store this information right, and one of the guys on the call was advocating really just for like your project documentation being where you're storing that information, but then when I was talking to Chat GPT about it, and kind of doing designs, it was, it was more advocating for creating like a vector database that was really more like a more like a triple store, where it's kind of like a whole bunch of like inferred facts about the system that it would then store in, in that vector database with references out to, like, your original, you know, documents that it could then retrieve from.
+
+Speaker 1  32:55  
+I think that's, yeah,
+
+Speaker 3  32:57  
+which of which of those models does this kind of indicate? Is this one kind of doing, or is it something completely different?
+
+Speaker 1  33:05  
+I think it's similar, but different. Let me, let me share screen here, I So, so this is inside, like you guys can see this, yeah, yeah. I mean, this is just inside my, you know, cloud distribution that I have projects here, and then I call this project Memory, with the idea is that there's a persistent system file file structure inside the clock application itself. I mean, I mean, it's just on top of it, and then I have different client distros, and then I just have you guys, and it just recommended kind of this, and this is a very simple format, but these are just things that you know with it, you could, you could think of these as, like, I guess you know you're kind of probably trending towards the first, you know, the first recommendation as it relates to just project management. So this just a, you know, a file tree, and then what I've done is just added like YAML tags up on top, and so this just, you know, there's a general summarization. This may not be like a perfect one, but like, so the way that I instructed the summary to occur was just based off this header content, so I could query based off type if I got to that place, but like date and like context, and then this is auto-generated based off the topics that are present, and then this is just, I mean, again, this is just a summarization of that particular call, and then it just uses these, you know, these are these are self-generated tags, things like that, but this is in a markdown format, and again, this is just for the notes, but with this YAML head, I mean, this could easily be then convert it into, you know, just some type of vectorized database, and then because of all this context already here, because auto-generated, it's super easy to query it if you wanted to do that, like go back to the original documents, I don't, is
+
+Speaker 3  35:14  
+it just query, it's, I guess, not queried by the model, so you put some kind of like a query interface over it for certain tags or something.
+
+Speaker 1  35:25  
+Yeah, there's like just a little bit of a Python script running in the back, where I establish like essentially five queries like that I would just run, and those are based off tags, date, topic, things like that. So just real simple, you know, just as long as it's in this markdown format, then I just stand it up inside that file, and just more like a basic query on it, but I do that all through the cloud console, not necessarily running it through like the terminal, so like the interface there is pretty, pretty straightforward. You could do it either way, right? I mean, there's like, you know, some code running in the background, but this way I can kind of do it all through the same interface. Now, this is a pretty simple construct, you know, you can imagine, like, if there's a world where you want to connect it to, like, multiple tools, there are built-in connections, like with Claude, to this transcription service I'm using, Otter, but it doesn't have perfect connections to everything, so that's where you would use something like Zapier, which is like creates all those little MCPs, or whatever, that do the connections back and forth between, like, your kind of large anchorage model space and whatever application that you particularly are using, so even if it's like, you know, a Teams application, or if it's, you know, Microsoft Project, something like that, it should be able to pull it in, essentially, in like a reduced form, be able to capture that information, as long as you have like those pipelines going back and forth, and then they can store it, either in this, you know, how you store it is up to you, that's just a file, just a basic file tree, but it certainly could do it like in a, in a, you know, more sophisticated, like, you know, vectorized database, or even maybe something that would be graphical, you know, if you did a graphical database based off like where it came from, like particular topic, like notes and transcripts for meetings, as compared to like actual project documentations and products, like you could imagine, I can imagine those being in different, very different regions in a graphical database, and that would be like very prompt enhancing as it relates to just storing it, as compared to just a straight vectorize everything and see what happens, so I don't know. I'm trending towards this. I'm trying to write like a little interviewing some people in my network next week, you know, one guy that's working in Northern Virginia to like expand like AI entrepreneurship and integration, another one that's the CEO of a small business, another one's the CEO of, like, a pretty large business, and just talking about how they're implementing things like this inside their workflows, like the initial conversation I have back and forth, it's like, you know, there's some level of sophistication, but, like, to a certain part, the hardest part is just getting started, you know, they're just getting started using these tools, and so sometimes maybe the simplest thing is best, and so I tried to do, I tried to incorporate that. I was like, "Oh, what's the simplest thing I can do? And it's just doing basically no transcription and capturing, and then you know, if I find an article, I'd like for you guys, I'm sticking that in there, and they're able to read it, and then I'll see. I mean, I think the product so far seem to be pretty usable, able to like search like the general topics that we talked about over the last year, like when they came up, and like that topic that Van just talked about, it wasn't necessarily on the agenda for the thing that we talked about last week, but it was like three weeks ago, you know. So it's a good thing that that's there, you know, that was able to kind of query and look at like we had talked about in the past, and it helped contextualize some of the responses I was giving Justin in real time, which is cool. I didn't have that before.
+
+Speaker 3  38:44  
+So, does Open AI have the right tool set to be able to implement something like that? Do you think?
+
+Speaker 1  38:51  
+Yeah, I think so. I think I think it's just a matter of like, especially because they communicate really, actually probably communicate better with Microsoft products than Claude would, maybe not like, I don't know, I think it does a pretty good job, Open AI, you know, even if, even if it doesn't, those third-party like extensions work pretty good, I mean, Zapier is the one that I've used that when I connect you to most email or connect you to Microsoft products, things like that, but I bet Open AI just has, like, based, like, like has their own MCP built in, or whatever you want to call it, that allows you to communicate with those, just give it access, and then you're
+
+Speaker 3  39:30  
+off and running. Do you think you could put together a little description on, like, what our implementation of that in our ecosystem would look like? So, like,
+
+Speaker 1  39:40  
+yeah,
+
+Speaker 3  39:41  
+like I've got the Chat GPT like app extension for SharePoint, which I've had mixed results with, and I've used the GitHub one too, in order to not for writing to GitHub, but really just for reading it for context, and we haven't enabled it, but we have, like, the email and teams are like available to us if we so chose, but I'd be interested to see, like, what kind of the workflow would look like in the scenario where you were looking to set something up like that for, you know, a small project with a couple developers, where you're looking to capture the meeting notes, and along with, you know, project documentation, and things like that, like your project plan stuff, and like what that would kind of look like.
+
+Speaker 1  40:36  
+Yeah, yeah, I think I could do that. I bet there's good use cases out there that have some of those architectures, and like the one I'm using right now, it's not that far away. It's just a matter of connecting to like some of the proprietary project stuff and figuring out exactly how you want to pull that in, but it would probably be like more like if you, yeah, I'll take a look. But I mean, I could imagine if like you're using it for, you know, like Microsoft Project, you know, you don't want.. there's a level of detail there that you wanted to retain in Microsoft Project, right? Or in SharePoint, or something like that, you know. But here it's more like, what are we using it for? Knowledge aggregation, maybe knowledge location, and then history, right? You know, to that a searching space becomes so large that it becomes hard to, like, learn from what's been done, so the aggregate associated with it, like, would be, would be interesting, because it was just, like, pure, you know, just capturing as much information as possible, like, you know, who the utility of that, like, I think is, you know, in real, in real time, as the project is going on, is certainly useful, but then, as like an archive, how can you like reactivate that agent and have a conversation with it about a project that you haven't worked on in three months, or whatever, you know, and that's not, that's, that's not a huge period of time, but it's long enough for you not to remember things, you know, so that part of it, yeah, I
+
+Speaker 3  41:59  
+could kind of see it being useful on almost three timescales, like, as you say, like there's kind of the real-time aspect where it's like help the developers and everyone like execute on the project, you know, and then there's like kind of more midterm things around maybe like reporting activities, like creating monthly status reports, or you know, yeah. yeah, you know, talking to our leadership, or their, you know, the customer leadership, about what we've been working on, and accomplishments, and things, and then there's longer term things, which is like, which probably maybe you wouldn't interact with it directly, but maybe you use it to create like long form reports about what you did on that project that then could be fed to other other processes, right? You know, past performances and, and things like that.
+
+Speaker 1  42:53  
+That's right. And you know that becomes interesting, right? Like, I, I was talking to someone the other day about how they believe that the wideness of their organization makes cross-pollination, especially in response to, like, RFPs, pretty, pretty difficult, because people are isolated, but you can imagine, like, if we have, you have this little smart agent that's reading all the notes you're taking, like, has access to the project, like, Res Recess, you know, has a, has a repository of the, you know, documents that were generated, all that you know, that becomes a point of interaction that becomes less, less friction-based, right? You just have, I have to have access to that clawed project, just add them to the access term, then you just, like, you're just pinging at it, and that becomes like a really easy way to do kind of cross-pollination, which would be the same for you guys too, right? Like, who knows? Like, some of the work that you're doing for the medical care, like you said, it might be really good for DFAS, right? Could be. Sounds like it. Yeah, there's like there's
+
+Speaker 3  43:53  
+two points of friction, right? There's like, there's one, like, even if the information's like one that you're describing, even if the information's known and extracted, it's hard to share it across the organization, but sometimes that information is just hard to extract from from the teams, just like
+
+Speaker 1  44:09  
+100%
+
+Speaker 3  44:10  
+because they, you know, they don't know how to speak and capture speak, or something like that, or they don't know what executives would be interested in knowing, you know, or something important might happen on their project, or they don't really recognize it, you know, because they're, yeah, they're not trained to, right. So
+
+Speaker 1  44:27  
+that's right. Hello, yeah. I like, I like that. I like that scaffolding, this idea that the, these individual project agents can help facilitate this type of cross-pollination of information that would typically get siloed. It's not that it's siloed, there's just a lot of friction, like you said, just natural friction associated with getting that information out, getting access to it. And then you could imagine, like, you could query that particular agent based off your own perspective, right? Say, like, hey, I'm not a technical lead, I'm a capture lead, talk to me about how this could work for my particular project, if you engineered those personalities a little bit, and that was like a default mode that you could apply inside those other spaces, then the prompt responses would certainly be like aligned with that perspective, and that wouldn't be too hard, that would be too hard to do, their personalities are easy to manipulate, yeah, that's interesting, but yeah, I'll put a little architecture together. That sounds, sounds like fun.
+
+Speaker 3  45:23  
+And Craig's, you could do the same thing. Craig's really interested in, he wants to hold like a, like a BD capture hackathon sort of thing to try to supercharge our capture processes.
+
+Speaker 1  45:36  
+Yeah,
+
+Speaker 3  45:37  
+because you know, right now, as a very small team, it's like, you know, we between, like, kind of market intelligence sorts of things, right, which is like very research-based. It's very fragmented, like, there's so many different sources to find information about what's happening with your customers, for, you know, customers that you want, you know, and so, like, we've talked before about setting up like email things, right, that kind of aggregates different mailing lists, you know, and things like that.
+
+Speaker 1  46:12  
+Yeah,
+
+Speaker 3  46:13  
+anyway, so like having agents to perform some of that, and then having agents that can do kind of the opportunity identification, right? So, like, filter out all the different opportunities that come out and find the ones that best align to us, or that are, you know, match our strategy, or our customer base, our capabilities, right? And then, finally, like, actually producing proposals themselves, right? And those are all things that I think could be majorly affected and would help feed each other, you know. You can get that, all that stuff working when you're not having to actually do it. Just imagine the efficiencies that you can have.
+
+Speaker 1  46:51  
+It's a real possibility that that approach requires democratization first, of like these, you know, it's, it's, I mean, you could imagine where you just went in and put all your capture information into like some vectorized database, and that it allows you to query it in a real way, and at least produce, I don't know, that would be hard. Yeah, let me think about that, because I mean, you would certainly allow you to produce new RFPs, but I'm not sure that it would, it would allow you to search for ones that are ideal fits, like that seems like a different problem, you know, to have something that was a little bit more.
+
+Speaker 3  47:26  
+Yeah, I almost see it as kind of like how I've been trying to tackle it is kind of like you've got agents that are responsible for creating things that then become inputs to the next agent
+
+Speaker 1  47:41  
+100%
+
+Speaker 3  47:42  
+rather than having like this end agent that is consuming like the source material, yeah, right,
+
+Speaker 1  47:50  
+no monolith, yeah,
+
+Speaker 3  47:52  
+yeah. So that's what I've been trying to do is like create kind of like standard kind of like you know canonical documents that describes an ATA capability, and I can get, give that to Morgan, you know, or I can give that to, you know, an agent, and it can then use that to help filter out opportunities, or she can shape it to a particular RFI, or something like that, you know.
+
+Speaker 1  48:17  
+Yeah,
+
+Speaker 3  48:17  
+that's how I picture us kind of moving, is like just, yeah, a whole bunch of agents that are making things that are then fed into the next one,
+
+Speaker 1  48:27  
+and, yeah, yeah, and those can, they don't, they don't necessarily have to be like crazy autonomous, I mean, you're like very simple structures where you just have, like, you know, it's a particular, like, you can spin them up, like, in real time, you know, like, you give a certain instance of a project workflow to, like, a Open AI agent, it learns as much as it can, and then you come back in an hour and says, "Okay, well, tell me what you know about this particular website. Does it match the distribution of stuff that we have here? And then that substantiates, you know, like you could do it like iteratively. You don't have to have, like, a big effort to spread it all across the enterprise, but as you stand them up, you know, then it's just a matter of, you know, kind of creating an ontology, I guess, about where you want to do that, who has access to them, and then, like, how it's managed, like, at a higher level, so that they can coordinate,
+
+Speaker 3  49:14  
+I mean, and I
+
+Speaker 1  49:15  
+do think, like, the, you know, the having everyone like work in a AI project space as like a default approach to every project, like the having that as an architecture, and what that looks like, setting it up up front is like the first step associated with getting to that. You can't say like what happens now is it's a lot of like individualized token usage, you know that that people are just querying and developing their stuff in isolation because it's so capable and so skill enhancing that people are wanting to keep that like what they're asking when they're asking like and that's fine I think that some of that can sustain but then I think maybe that this integration piece is like, how do you have everyone querying at the same agent, you know, on a team for that particular project, like almost like you would for, you know, like you said, you, you set up a team site, right, so there should be like one particular agent that's learning along the way, and then that becomes your, you know, then you just tell that particular intelligence, and you know that particular agent that has access to that repository is learning that project, you can format and create it in a way where it not only knows that project, but because of these now developing better long-term memory tools, it all has a distribution of understanding that allows you to leverage that in the future, how you, how you want, and
+
+Speaker 1  50:42  
+certainly you can take that information out and vectorize it, but it also seems like even the analysis and understanding in real time, just in the current form, whether that's in an Excel spreadsheet or Microsoft Word, or whatever, like it still functions pretty well. I mean, the sophistication of that might not be as robust as you want for, like, the long term, but it, you know, it's also not, not necessarily sub-optimizing that initial adoption. I would say, you know, because the efficiency with which the agents can read and manipulate those, those documents in their current form is pretty good now. Yeah, yeah,
+
+Speaker 3  51:20  
+interesting. I wonder if, like, the whole vector form is just gonna eventually go away, like maybe we'll abandon that idea.
+
+Speaker 1  51:29  
+I don't know, it's interesting, because I mean, I have to, I have, you know, I have to, I mean, I created this little tool, you know, you could create stuff that's just so easy, but I went back to a standard, like a SQL schema, because I could put in a lot more robust structuring associated with how I was querying that information in a way that allowed it me to be a lot like, you know, just basic stuff, where I wasn't like trying to necessarily optimize the large language model, I was trying to optimize my, my search on the back end, and I still can query through the, through the prompt, for that, you know, I'm not, I'm not, I'm not, I'm not doing it through the terminal, I'm still generating the SQL queries through the, you know, through the, through the prompt window, but it's a lot more robust as it relates to, like, the things that I want to search and find, but I mean, maybe that's a different story, but I'm not trying to train the large language model anymore, right. I'm just keeping everything in text form, and then querying it in a way where it processes it in real time. Maybe that's more token intensive, too. Like, I hadn't really thought, you know, might be, might be easier to do it, like more like a rag style, where it feeds off the prompt, and then sends it back. But I don't know, for most of these memory capturing efforts, you know, if they're, if they're tagged and stored in the right way in their organic form, it doesn't seem to me that there's any latency associated with just keeping it that way, and then prompting it. So, I'm sure there's a rationale for it, but, like, in these, in these quick wins, you know, in begging it, I'm not, I don't see it right away. Yeah, so maybe, yeah, I don't know. It used to be that was the case, right? Not that I remember having a conversation with a friend of mine who's like a, you know, vice president at a marketing firm, but they're like pretty teched up. It was like three years ago, and he's like, yeah, we're just, we're vectorizing everything, like all our client invoices, like all our contracts, all our proposals, we're just doing, we're just vectorizing the shit out of it, so we can query and pull it in natural language. I should go back and talk to him now, because I mean, yeah, certainly vectorize all that, you know, but like the connection between where it is and you know what you're getting back to be able to connect it back to, like, well, let me see that particular, that particular contract with that client at that time, like that you weren't really able to do that, like a couple years ago, the history just the log associated with those, unless they were like very, it just, you know, doing that vectorization just kind of blows up that entire structure, everything becomes one gigantic bag, but that it helps it generate, though, like that's the thing, like that's a generation machine. It's generating new contracts. It's not necessarily querying and retaining information, because large language models are not a data store. So maybe that's the intellectual separation, like if you want to be able to retrieve documentation, leave it in its native form. If you want to generate, then you vectorize it. So maybe that's it. It's
+
+Speaker 3  54:21  
+kind of like it's got like an imprint of the history, but not store the history, almost. You know, it
+
+Speaker 1  54:27  
+doesn't. Yeah. And
+
+Speaker 3  54:29  
+then
+
+Speaker 1  54:30  
+what, what appeared to be the case, at least from the research that I was reading, is that that ability to history, great atrophies over time, so like whatever the whatever the capacity of like the new models, or like its ability to be able to query and pull that information and accurately reflect it as it gets further away from that point, as more information is added to it, it seems like it doesn't work as well, and that's why they came out with some of these new products, these new kind of architectures to allow, like Claude, for instance, to have Claude will connect all the conversations you have with it across projects and forms, and the idea is that it, that organically allows it to better have a better memory of any one project, because it knows the other things that you're working on. Dreaming, or Dreamer, for Open AI, seems to be a little bit different. It has much more of a systematic approach relative to how it manages the information inside one project, which actually feels to me like the better, the better of the two, and that was purposely designed because they had this memory retention problem associated with, like, and it's just not really what large language models are designed to do, so they, so they just like anything else, they just systematized it in a way that it allows for the natural query but increases the memory over the long term. At least that was my, my read on it. Yeah,
+
+Speaker 3  55:49  
+we're almost at time. Danny got anything else before we drop?
+
+Speaker 1  55:56  
+You're muted.
+
+Speaker 2  56:00  
+No, I don't got anything else. Sorry, you're being so distracted. It's just, you know, everything's trying to fit a bunch of things in for the end of the day.
+
+Speaker 1  56:09  
+Yeah, fair enough. It's only 2o'clock here, so I got plenty of time. If you guys want to keep going, I'm in Wisconsin. So,
+
+Speaker 4  56:17  
+how are you?
+
+Speaker 1  56:18  
+Yep,
+
+Speaker 5  56:20  
+I'm up here for a couple of months, actually, so oh yeah
+
+Speaker 3  56:24  
+sabbatical
+
+Speaker 1  56:26  
+no I'm still working I just I have some family up here some family issues too that we're dealing with so just need to be a little bit closer so I'm staying up here for a couple months my family and I ever switched spots I think I'll go back for a couple weeks, Charlesville, and then she'll come up here, but we're hanging out.
+
+Speaker 3  56:45  
+Any freeze for you? Oh, Randy, there.
+
+Speaker 1  56:50  
+Oh, yeah. I mean, is it
+
+Speaker 3  56:52  
+frozen up? Okay, we're frozen again.
+
+Speaker 1  56:55  
+I guess it's time to stop.
+
+Speaker 3  56:58  
+Oh. There we go. Think you're back.
+
+Speaker 1  57:07  
+Is it working?
+
+Speaker 3  57:08  
+Yeah, okay.
+
+Speaker 1  57:12  
+All right, guys, I'll see you later.
+
+Speaker 2  57:14  
+But for the topic that I brought up earlier, trying to formalize an approach for that to bring to the customer in the next couple weeks, or whatever, so I revisit that event, and if you have any, you know, locations or anything, you point my direction. Also, for that to be good.
+
+Speaker 1  57:37  
+Yeah, let me.. Why don't we do you want to talk again about that before you want to talk again about it next week? Maybe I can spend a time, see what I can find, and then we can have, like, you know, maybe a half an hour call on that particular. Do you just want to meet, say, the same time next Friday? I could do that.
+
+Speaker 4  57:55  
+Yeah, that would work. Okay, yep,
+
+Speaker 1  57:58  
+okay, yeah. So I'll go back and take a look at what we've talked about, and then kind of the transcripts for this, and I'll see what I'll see what I can find, but so you're going to, you're going to go back to the client and propose what we talked about at the very beginning of the call, right? Is that it's more like this
+
+Speaker 2  58:17  
+as a zero day approach for the type of information they want to grab from anything, any type of unknown media, including forms they haven't seen before.
+
+Speaker 1  58:28  
+Okay.
+
+Speaker 3  58:29  
+Yep.
+
+Speaker 1  58:30  
+All right. All right. Yeah, let me take a look. Sounds good. All right, buddy. All right. I'll talk to you guys later. Bye.
+
+Transcribed by https://otter.ai

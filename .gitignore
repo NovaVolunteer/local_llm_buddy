@@ -1,3 +1,6 @@
 .venv
 .vscode
 .env.example
+.env
+local_llm_buddy.egg-info
+Breaking it down piece by piece.txt
