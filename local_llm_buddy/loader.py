@@ -20,7 +20,7 @@ from __future__ import annotations
 
 import re
 from pathlib import Path
-from typing import Iterator, List
+from typing import Iterator, List, Sequence, Union
 
 from langchain_core.document_loaders.base import BaseLoader
 from langchain_core.documents import Document
@@ -134,6 +134,11 @@ class OtterTranscriptLoader(BaseLoader):
         pass a pre-expanded list when needed.
     encoding:
         Text encoding to use when reading files (default: ``"utf-8"``).
+    doc_type:
+        Tag stored in each Document's ``doc_type`` metadata field, e.g.
+        ``"transcript"`` (default) or ``"summary"``.  Lets callers ingest
+        raw transcripts and meeting summaries into the same index while
+        keeping them distinguishable for filtered retrieval later.
 
     Examples
     --------
@@ -151,17 +156,24 @@ class OtterTranscriptLoader(BaseLoader):
             "meeting_b.srt",
         ])
         docs = loader.load()
+
+    Load meeting summaries, tagged distinctly from raw transcripts::
+
+        loader = OtterTranscriptLoader("meeting_a_summary.txt", doc_type="summary")
+        docs = loader.load()
     """
 
     def __init__(
         self,
-        file_paths: "str | Path | List[str | Path]",
+        file_paths: Union[str, Path, Sequence[Union[str, Path]]],
         encoding: str = "utf-8",
+        doc_type: str = "transcript",
     ) -> None:
         if isinstance(file_paths, (str, Path)):
             file_paths = [file_paths]
         self._paths: List[Path] = [Path(p) for p in file_paths]
         self._encoding = encoding
+        self._doc_type = doc_type
 
     # ------------------------------------------------------------------
     # BaseLoader interface
@@ -187,20 +199,23 @@ class OtterTranscriptLoader(BaseLoader):
         suffix = path.suffix.lower()
         source = str(path.resolve())
         if suffix == ".srt":
-            return _parse_srt(text, source)
-        # Default: treat as plain-text Otter.ai export
-        docs = _parse_txt(text, source)
-        if not docs:
-            # Fallback: wrap the entire file as one document
-            docs = [
-                Document(
-                    page_content=text.strip(),
-                    metadata={
-                        "source": source,
-                        "speaker": "",
-                        "timestamp": "",
-                        "format": "txt",
-                    },
-                )
-            ]
+            docs = _parse_srt(text, source)
+        else:
+            # Default: treat as plain-text Otter.ai export
+            docs = _parse_txt(text, source)
+            if not docs:
+                # Fallback: wrap the entire file as one document
+                docs = [
+                    Document(
+                        page_content=text.strip(),
+                        metadata={
+                            "source": source,
+                            "speaker": "",
+                            "timestamp": "",
+                            "format": "txt",
+                        },
+                    )
+                ]
+        for doc in docs:
+            doc.metadata["doc_type"] = self._doc_type
         return docs

@@ -12,6 +12,8 @@ from unittest.mock import MagicMock, patch
 
 import pytest
 from langchain_core.documents import Document
+from langchain_core.messages import AIMessage
+from langchain_ollama import ChatOllama
 
 from local_llm_buddy.config import Settings
 from local_llm_buddy.loader import OtterTranscriptLoader
@@ -225,3 +227,63 @@ class TestBuildRagChain:
             build_rag_chain(mock_retriever, cfg)
             _, kwargs = MockLLM.call_args
             assert kwargs["temperature"] == 0.5
+
+    def test_invoke_without_history_skips_condensing(self):
+        """A bare string question (no memory) shouldn't trigger the extra
+        condense-question LLM call – only the final answer call."""
+        from langchain_core.runnables import RunnableLambda
+
+        from local_llm_buddy.rag import build_rag_chain
+
+        cfg = _make_settings()
+        retriever_calls = []
+        # A MagicMock(spec=BaseRetriever) would auto-mock __or__/__ror__ too,
+        # silently short-circuiting the real LCEL pipe composition. Use a
+        # genuine Runnable (RunnableLambda) so `retriever | fn` behaves for real.
+        fake_retriever = RunnableLambda(lambda q: (retriever_calls.append(q), [])[1])
+
+        with patch("local_llm_buddy.rag.ChatOllama") as MockLLM:
+            mock_llm_instance = MagicMock(spec=ChatOllama)
+            mock_llm_instance.invoke.return_value = AIMessage(content="test answer")
+            MockLLM.return_value = mock_llm_instance
+            chain = build_rag_chain(fake_retriever, cfg)
+            answer = chain.invoke("What did Jon say about LLMs?")
+
+        assert answer == "test answer"
+        assert mock_llm_instance.invoke.call_count == 1
+        assert retriever_calls == ["What did Jon say about LLMs?"]
+
+    def test_invoke_with_history_condenses_and_retrieves_standalone_question(self):
+        """A dict with chat_history should condense the follow-up into a
+        standalone question before retrieval, and pass history to the LLM."""
+        from langchain_core.messages import HumanMessage
+        from langchain_core.runnables import RunnableLambda
+
+        from local_llm_buddy.rag import build_rag_chain
+
+        cfg = _make_settings()
+        retriever_calls = []
+        fake_retriever = RunnableLambda(lambda q: (retriever_calls.append(q), [])[1])
+        chat_history = [
+            HumanMessage("What did Jon say about LLMs?"),
+            AIMessage("Jon said LLMs are useful for note-taking."),
+        ]
+
+        with patch("local_llm_buddy.rag.ChatOllama") as MockLLM:
+            mock_llm_instance = MagicMock(spec=ChatOllama)
+            mock_llm_instance.invoke.return_value = AIMessage(
+                content="Was that in the latest meeting?"
+            )
+            MockLLM.return_value = mock_llm_instance
+            chain = build_rag_chain(fake_retriever, cfg)
+            answer = chain.invoke(
+                {
+                    "question": "Was that in the latest meeting?",
+                    "chat_history": chat_history,
+                }
+            )
+
+        assert answer == "Was that in the latest meeting?"
+        # One call to condense the standalone question, one to answer.
+        assert mock_llm_instance.invoke.call_count == 2
+        assert retriever_calls == ["Was that in the latest meeting?"]

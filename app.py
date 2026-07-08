@@ -22,6 +22,7 @@ import tempfile
 from pathlib import Path
 
 import streamlit as st
+from langchain_core.messages import AIMessage, HumanMessage
 
 from local_llm_buddy import OtterTranscriptLoader, PineconeStore, Settings, build_rag_chain
 
@@ -231,7 +232,18 @@ if prompt := st.chat_input("Ask a question about your transcripts …"):
     with st.chat_message("assistant"):
         with st.spinner("Thinking …"):
             try:
-                answer = chain.invoke(prompt)
+                # Prior turns (excluding the question just appended above)
+                # so the chain can resolve follow-ups like "was that in the
+                # latest meeting?" and the retriever can search accordingly.
+                chat_history = []
+                for msg in st.session_state["messages"][:-1]:
+                    if msg["role"] == "user":
+                        chat_history.append(HumanMessage(msg["content"]))
+                    else:
+                        chat_history.append(AIMessage(msg["content"]))
+                answer = chain.invoke(
+                    {"question": prompt, "chat_history": chat_history}
+                )
             except Exception as exc:
                 answer = f"⚠️ Error: {exc}"
         st.markdown(answer)
